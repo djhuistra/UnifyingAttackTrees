@@ -1,0 +1,38 @@
+[%
+
+var attackTree : AttackTree = AttackTree.allInstances().first();
+
+var root : Node = attackTree.Root;
+
+var nodes: Set = attackTree.Nodes;
+
+// Empty set used to determine nodes already added to output
+var nodesUsed: Set;
+%]
+[* Start with printing the root*]
+toplevel "[%=root.Label%]";
+
+[* First we print out the tree. All nodes with their children *]
+[% for (i in nodes) { %]
+	[* For each node with children (that is not already defined), print them *]
+	[* ATCalc does not accept double definitions (for OR and AND, but does for SEQAND) *]
+	[% if(i.Children.size() > 0 and not (nodesUsed.select(n|n.Label=i.Label).size() > 0) ) { %]
+		[% if(i.Connector.isTypeOf(UATMM!OR)) { %]
+"[%=i.Label%]" or [% for (y in i.Children) { %] "[%=y.Label%]" [% } %];
+		[% } else {%]
+"[%=i.Label%]" seqand [% for (y in i.Children) { %] "[%=y.Label%]" [% } %];
+		[% }%]
+	[% nodesUsed.add(i);
+	}%]
+[% } %]
+
+[* Then we print out the attributes of each leaf*]
+[% for (i in nodes) { %]
+	[% if(i.Children.size() <= 0) { %]
+		[% var attL : Attribute = i.Attributes.select(d|d.Domain==UATMM!Domain.allInstances.select(d|d.ID=="ProbSucc").first()).first();
+		var attT : Attribute = i.Attributes.select(d|d.Domain==UATMM!Domain.allInstances.select(d|d.ID=="MinTimeSeq").first()).first();
+		var value : Any =  (1.0/attT.Value);
+		%]
+"[%=i.Label%]" lambda=[%=value %] dorm=0 prob=[%=attL.Value %];		
+	[% }%]
+[% } %]
