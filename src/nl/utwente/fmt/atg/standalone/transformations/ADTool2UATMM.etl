@@ -1,0 +1,114 @@
+pre {
+
+  	var javaDate = new Native("java.util.Date");
+  	javaDate.toString().println("Starting ADTool2M transformation: ");
+}
+
+post {
+ 	var javaDate = new Native("java.util.Date");
+  	javaDate.toString().println("Completed ADTool2M transformation: ");
+}
+
+// Transform all domains and set several attributes by obtaining 
+// info from attributes and child nodes
+@primary
+rule ADToolDomain2UATDomain
+	transform ad : ADTool!t_domain
+	to gad : UATMM!Domain {
+	
+	gad.ID = ad.a_id;
+	gad.Computation = true;
+}
+
+rule ADToolTree2UATTree
+	transform ad : ADTool!t_adtree
+	to uat : UATMM!AttackTree {
+	
+	var role1 = new UATMM!Role();
+	role1.RoleType = UATMM!RoleType#Contributing;
+	role1.RoleDescription = "Attack";
+	
+	var role2 = new UATMM!Role();
+	role2.RoleType = UATMM!RoleType#Counteracting;
+	role2.RoleDescription = "Defense";
+	
+	uat.Roles.add(role1);
+	uat.Roles.add(role2);
+	
+	for(domain in UATMM!Domain.allInstances){
+		uat.Domains.add(domain);
+	}
+	
+	ad.e_node.recursiveXMLTeardown(true, null);
+}
+
+// Recursive XML Teardown operation. Called on XML node and will call method on all child nodes
+// Creates an ATNode, sets its parameters and sets parent/child relation to child ATNodes.
+operation ADTool!t_node recursiveXMLTeardown(role : Boolean, parent : UATMM!Node) : UATMM!Node{
+	var children = self.c_node;
+	var parameters = self.c_parameter;
+	var result = new UATMM!Node();
+	
+	result.Label = self.e_label.text;
+	
+	// Reverse roles if node contains switchRole attribute
+	if(("yes").equals(self.a_switchRole)){
+		role = not role;
+	}
+	
+	result.Role = self.findRole(role);
+	result.Connector = self.findConnector();
+		
+	getAttackTree().Nodes.add(result);
+	
+	// If there is a parent, add it.
+	if(parent<>null){
+		result.Parents.add(parent);
+	} else {
+		getAttackTree().Root = result;
+	}
+
+	// If node has any childeren, call method recursively and add references to results.
+	if(children.size()>0){
+		for(c in children){
+	  		result.Children.add(c.recursiveXMLTeardown(role, result));
+	 	}
+	
+	// If there are not any childeren, there can be paramters. Add 
+	} else {
+		for(p in parameters){
+			var param = new UATMM!Attribute();
+			param.Value = p.text;
+			param.Domain = p.findDomain();
+			result.Attributes.add(param);
+		}
+	}
+	
+	return result;
+}
+
+operation ADTool!t_parameter findDomain(){
+	return UATMM!Domain.allInstances.select(d|d.ID==self.a_domainId).first();
+	
+}
+
+operation ADTool!t_node findConnector(){
+	if(self.a_refinement.equals("disjunctive")){
+		return new UATMM!OR();
+	} else {
+		return new UATMM!AND();
+	}
+}
+
+operation ADTool!t_node findRole(role:Boolean){
+	if(role){
+		return UATMM!Role.allInstances.select(n|n.RoleType=UATMM!RoleType#Contributing).first();
+	} else {
+		return UATMM!Role.allInstances.select(n|n.RoleType=UATMM!RoleType#Counteracting).first();
+	}
+}
+
+@cached
+operation Any getAttackTree() : UATMM!AttackTree{
+	return UATMM!AttackTree.allInstances.last();	
+}

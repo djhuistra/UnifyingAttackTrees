@@ -31,8 +31,17 @@ toplevel "[%=root.Label%]";
 	[% if(i.Children.size() <= 0) { %]
 		[% var attL : Attribute = i.Attributes.select(d|d.Domain==UATMM!Domain.allInstances.select(d|d.ID=="ProbSucc").first()).first();
 		var attT : Attribute = i.Attributes.select(d|d.Domain==UATMM!Domain.allInstances.select(d|d.ID=="MinTimeSeq").first()).first();
-		var value : Any =  (1.0/attT.Value);
+		var value : Any =  attT.Value.divideBy();
 		%]
 "[%=i.Label%]" lambda=[%=value %] dorm=0 prob=[%=attL.Value %];		
 	[% }%]
-[% } %]
+[% } 
+operation String divideBy() : Integer {
+	return 1/(self.asInteger());
+}
+
+operation Integer divideBy() : Integer {
+	return 1/self;
+}
+
+%]
