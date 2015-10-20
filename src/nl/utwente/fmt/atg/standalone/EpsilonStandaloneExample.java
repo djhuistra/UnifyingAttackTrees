@@ -14,7 +14,6 @@ import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.eol.models.IModel;
-import org.eclipse.epsilon.eol.models.IRelativePathResolver;
 
 public abstract class EpsilonStandaloneExample {
   
@@ -81,9 +80,25 @@ public abstract class EpsilonStandaloneExample {
     properties.put(EmfModel.PROPERTY_READONLOAD, readOnLoad + "");
     properties.put(EmfModel.PROPERTY_STOREONDISPOSAL, 
         storeOnDisposal + "");
-    emfModel.load(properties, (IRelativePathResolver) null);
+    emfModel.load(properties, null);
     return emfModel;
   }
+  
+  protected EmfModel createEmfModel2(String name, String model, 
+	      String metamodel, boolean readOnLoad, boolean storeOnDisposal) 
+	          throws EolModelLoadingException, URISyntaxException {
+	    EmfModel emfModel = new EmfModel();
+	    StringProperties properties = new StringProperties();
+	    properties.put(EmfModel.PROPERTY_NAME, name);
+	    properties.put(EmfModel.PROPERTY_FILE_BASED_METAMODEL_URI,
+	    		getFileURI(metamodel).toString());
+	    properties.put(EmfModel.PROPERTY_MODEL_URI, model);
+	    properties.put(EmfModel.PROPERTY_READONLOAD, readOnLoad + "");
+	    properties.put(EmfModel.PROPERTY_STOREONDISPOSAL, 
+	        storeOnDisposal + "");
+	    emfModel.load(properties, null);
+	    return emfModel;
+	  }
   
 //  protected PlainXmlModel createPlainXmlModel(String name, String model, 
 //	      boolean readOnLoad, boolean storeOnDisposal) throws EolModelLoadingException {
@@ -115,7 +130,25 @@ public abstract class EpsilonStandaloneExample {
 	  properties.put(PlainXmlModel.PROPERTY_STOREONDISPOSAL, 
 	        storeOnDisposal + "");
 	  
-	  XmlModel.load(properties, (IRelativePathResolver) null);
+	  XmlModel.load(properties, null);
+
+	  
+	  return XmlModel;
+  }
+  
+  protected PlainXmlModel createPlainXmlModel4(String name, String model, 
+	      boolean readOnLoad, boolean storeOnDisposal) throws EolModelLoadingException, URISyntaxException {
+	  
+	  PlainXmlModel XmlModel = new PlainXmlModel();
+	  StringProperties properties = new StringProperties();
+	  
+	  properties.put(PlainXmlModel.PROPERTY_NAME, name);
+	  properties.put(PlainXmlModel.PROPERTY_URI, model);
+	  properties.put(PlainXmlModel.PROPERTY_READONLOAD, readOnLoad + "");
+	  properties.put(PlainXmlModel.PROPERTY_STOREONDISPOSAL, 
+	        storeOnDisposal + "");
+	  
+	  XmlModel.load(properties, null);
 
 	  
 	  return XmlModel;
@@ -152,7 +185,7 @@ public abstract class EpsilonStandaloneExample {
     properties.put(EmfModel.PROPERTY_READONLOAD, readOnLoad + "");
     properties.put(EmfModel.PROPERTY_STOREONDISPOSAL, 
         storeOnDisposal + "");
-    emfModel.load(properties, (IRelativePathResolver) null);
+    emfModel.load(properties, null);
     return emfModel;
   }
   

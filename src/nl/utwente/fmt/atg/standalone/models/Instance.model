@@ -1,2 +1,188 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"/>
+<UATMM:AttackTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:UATMM="http://UATMM/1.0" Root="//@Nodes.0">
+  <Nodes Role="//@Roles.0" Children="//@Nodes.1 //@Nodes.17" Label="get item x002 and extract data x006">
+    <Connector xsi:type="UATMM:AND"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Children="//@Nodes.2 //@Nodes.3 //@Nodes.6 //@Nodes.7 //@Nodes.14" Parents="//@Nodes.0" Label="MAKE Ethan Terry IN Terry ITEM idcard x002 ACTOR Sydney Sydney">
+    <Connector xsi:type="UATMM:OR"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.1" Label="Ethan threatens Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED00057400023530" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3735" Domain="//@Domains.2"/>
+    <Attributes Value="ACED00057400014D" Domain="//@Domains.0"/>
+    <Attributes Value="ACED000574000131" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Children="//@Nodes.4 //@Nodes.5" Parents="//@Nodes.1" Label="Ethan blackmails Terry">
+    <Connector xsi:type="UATMM:AND"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.3" Label="Ethan collects some intel about Terry">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED000574000431303030" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3735" Domain="//@Domains.2"/>
+    <Attributes Value="ACED00057400014D" Domain="//@Domains.0"/>
+    <Attributes Value="ACED00057400023234" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.3" Label="Ethan blackmails Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED00057400053130303030" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3235" Domain="//@Domains.2"/>
+    <Attributes Value="ACED000574000148" Domain="//@Domains.0"/>
+    <Attributes Value="ACED00057400023234" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.1" Label="Ethan bribes Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED000574000432303030" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740003302E35" Domain="//@Domains.2"/>
+    <Attributes Value="ACED00057400014D" Domain="//@Domains.0"/>
+    <Attributes Value="ACED000574000131" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Children="//@Nodes.8 //@Nodes.11" Parents="//@Nodes.1" Label="Ethan socially engineers Terry">
+    <Connector xsi:type="UATMM:OR"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Children="//@Nodes.9 //@Nodes.10" Parents="//@Nodes.7" Label="authority attack">
+    <Connector xsi:type="UATMM:AND"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.8" Label="Ethan impersonates authority">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED000574000130" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3235" Domain="//@Domains.2"/>
+    <Attributes Value="ACED000574000145" Domain="//@Domains.0"/>
+    <Attributes Value="ACED00057400023234" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.8" Label="Ethan orders Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED000574000130" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3235" Domain="//@Domains.2"/>
+    <Attributes Value="ACED000574000145" Domain="//@Domains.0"/>
+    <Attributes Value="ACED0005740003373230" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Children="//@Nodes.12 //@Nodes.13" Parents="//@Nodes.7" Label="phishing attack">
+    <Connector xsi:type="UATMM:AND"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.11" Label="Ethan collects information about Terry">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED000574000431303030" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3735" Domain="//@Domains.2"/>
+    <Attributes Value="ACED00057400014D" Domain="//@Domains.0"/>
+    <Attributes Value="ACED00057400023234" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.11" Label="Ethan launches a phishing attack targeted at Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED0005740003323030" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740003302E35" Domain="//@Domains.2"/>
+    <Attributes Value="ACED00057400014C" Domain="//@Domains.0"/>
+    <Attributes Value="ACED00057400023234" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Children="//@Nodes.15 //@Nodes.16" Parents="//@Nodes.1" Label="Ethan acquires Terry trust and tricks him into executing IN Terry ITEM idcard x002 ACTOR Sydney Sydney">
+    <Connector xsi:type="UATMM:AND"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.14" Label="Ethan becomes friends with Terry">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED0005740003333030" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3735" Domain="//@Domains.2"/>
+    <Attributes Value="ACED00057400014D" Domain="//@Domains.0"/>
+    <Attributes Value="ACED00057400023234" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.14" Label="Ethan tricks Terry into executing IN Terry ITEM idcard x002 ACTOR Sydney Sydney">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED000574000130" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740003302E35" Domain="//@Domains.2"/>
+    <Attributes Value="ACED000574000148" Domain="//@Domains.0"/>
+    <Attributes Value="ACED000574000131" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Children="//@Nodes.18 //@Nodes.19 //@Nodes.22 //@Nodes.23 //@Nodes.30" Parents="//@Nodes.0" Label="MAKE Ethan Terry IN Terry DATA pin x006 ITEM idcard x002">
+    <Connector xsi:type="UATMM:OR"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.17" Label="Ethan threatens Terry to execute IN Terry DATA pin x006 ITEM idcard x002">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED00057400023530" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3735" Domain="//@Domains.2"/>
+    <Attributes Value="ACED00057400014D" Domain="//@Domains.0"/>
+    <Attributes Value="ACED000574000131" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Children="//@Nodes.20 //@Nodes.21" Parents="//@Nodes.17" Label="Ethan blackmails Terry">
+    <Connector xsi:type="UATMM:AND"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.19" Label="Ethan collects some intel about Terry">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED000574000431303030" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3735" Domain="//@Domains.2"/>
+    <Attributes Value="ACED00057400014D" Domain="//@Domains.0"/>
+    <Attributes Value="ACED00057400023234" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.19" Label="Ethan blackmails Terry to execute IN Terry DATA pin x006 ITEM idcard x002">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED00057400053130303030" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3235" Domain="//@Domains.2"/>
+    <Attributes Value="ACED000574000148" Domain="//@Domains.0"/>
+    <Attributes Value="ACED00057400023234" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.17" Label="Ethan bribes Terry to execute IN Terry DATA pin x006 ITEM idcard x002">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED000574000432303030" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740003302E35" Domain="//@Domains.2"/>
+    <Attributes Value="ACED00057400014D" Domain="//@Domains.0"/>
+    <Attributes Value="ACED000574000131" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Children="//@Nodes.24 //@Nodes.27" Parents="//@Nodes.17" Label="Ethan socially engineers Terry">
+    <Connector xsi:type="UATMM:OR"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Children="//@Nodes.25 //@Nodes.26" Parents="//@Nodes.23" Label="authority attack">
+    <Connector xsi:type="UATMM:AND"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.24" Label="Ethan impersonates authority">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED000574000130" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3235" Domain="//@Domains.2"/>
+    <Attributes Value="ACED000574000145" Domain="//@Domains.0"/>
+    <Attributes Value="ACED00057400023234" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.24" Label="Ethan orders Terry to execute IN Terry DATA pin x006 ITEM idcard x002">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED000574000130" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3235" Domain="//@Domains.2"/>
+    <Attributes Value="ACED000574000145" Domain="//@Domains.0"/>
+    <Attributes Value="ACED0005740003373230" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Children="//@Nodes.28 //@Nodes.29" Parents="//@Nodes.23" Label="phishing attack">
+    <Connector xsi:type="UATMM:AND"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.27" Label="Ethan collects information about Terry">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED000574000431303030" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3735" Domain="//@Domains.2"/>
+    <Attributes Value="ACED00057400014D" Domain="//@Domains.0"/>
+    <Attributes Value="ACED00057400023234" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.27" Label="Ethan launches a phishing attack targeted at Terry to execute IN Terry DATA pin x006 ITEM idcard x002">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED0005740003323030" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740003302E35" Domain="//@Domains.2"/>
+    <Attributes Value="ACED00057400014C" Domain="//@Domains.0"/>
+    <Attributes Value="ACED00057400023234" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Children="//@Nodes.31 //@Nodes.32" Parents="//@Nodes.17" Label="Ethan acquires Terry trust and tricks him into executing IN Terry DATA pin x006 ITEM idcard x002">
+    <Connector xsi:type="UATMM:AND"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.30" Label="Ethan becomes friends with Terry">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED0005740003333030" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740004302E3735" Domain="//@Domains.2"/>
+    <Attributes Value="ACED00057400014D" Domain="//@Domains.0"/>
+    <Attributes Value="ACED00057400023234" Domain="//@Domains.3"/>
+  </Nodes>
+  <Nodes Role="//@Roles.0" Parents="//@Nodes.30" Label="Ethan tricks Terry into executing IN Terry DATA pin x006 ITEM idcard x002">
+    <Connector xsi:type="UATMM:OR"/>
+    <Attributes Value="ACED000574000130" Domain="//@Domains.1"/>
+    <Attributes Value="ACED0005740003302E35" Domain="//@Domains.2"/>
+    <Attributes Value="ACED000574000148" Domain="//@Domains.0"/>
+    <Attributes Value="ACED000574000131" Domain="//@Domains.3"/>
+  </Nodes>
+  <Roles RoleDescription="Attack"/>
+  <Roles RoleType="Counteracting" RoleDescription="Defense"/>
+  <Domains ID="DiffLMHE" Computation="true"/>
+  <Domains ID="MinCost" Computation="true"/>
+  <Domains ID="ProbSucc" Computation="true"/>
+  <Domains ID="MinTimeSeq" Computation="true"/>
+</UATMM:AttackTree>

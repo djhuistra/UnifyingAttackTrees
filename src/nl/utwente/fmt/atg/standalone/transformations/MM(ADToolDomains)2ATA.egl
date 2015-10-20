@@ -1,4 +1,6 @@
 [%
+  	var javaDate = new Native("java.util.Date");
+  	javaDate.toString().println("Starting MM2ATCalc generation: ");
 
 var attackTree : AttackTree = AttackTree.allInstances().first();
 
@@ -29,19 +31,33 @@ toplevel "[%=root.Label%]";
 [* Then we print out the attributes of each leaf*]
 [% for (i in nodes) { %]
 	[% if(i.Children.size() <= 0) { %]
-		[% var attL : Attribute = i.Attributes.select(d|d.Domain==UATMM!Domain.allInstances.select(d|d.ID=="ProbSucc").first()).first();
+		[% var attL : Attribute = i.Attributes.select(d|d.Domain==UATMM!Domain.allInstances.select(d|d.ID.equals("ProbSucc")).first()).first();
 		var attT : Attribute = i.Attributes.select(d|d.Domain==UATMM!Domain.allInstances.select(d|d.ID=="MinTimeSeq").first()).first();
 		var value : Any =  attT.Value.divideBy();
 		%]
 "[%=i.Label%]" lambda=[%=value %] dorm=0 prob=[%=attL.Value %];		
 	[% }%]
 [% } 
-operation String divideBy() : Integer {
-	return 1/(self.asInteger());
+
+
+ 	var javaDate = new Native("java.util.Date");
+  	javaDate.toString().println("Completed MM2ATCalc generation: ");
+  	
+operation String divideBy() : Real {
+	if(self.asInteger()>0){
+		return 1.0/(self.asInteger());
+	}
+	return 0;
 }
 
-operation Integer divideBy() : Integer {
-	return 1/self;
+operation Integer divideBy() : Real {
+	if(self>0){
+		return 1.0/self;
+	}
+	return 0;
+	
 }
+
+
 
 %]

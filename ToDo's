@@ -1,0 +1,4 @@
+- Issue 1: MM2ADTool fails because of FileNotFound Exception.
+	-> We are currently writing output to internal XML file. Avoid this step?
+	
+- Issue 2: Jar files produces error on output. Not sure why.

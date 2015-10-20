@@ -1,0 +1,32 @@
+toplevel "get item x002 and extract data x006";
+
+"get item x002 and extract data x006" seqand  "MAKE Ethan Terry IN Terry ITEM idcard x002 ACTOR Sydney Sydney"  "MAKE Ethan Terry IN Terry DATA pin x006 ITEM idcard x002" ;
+"MAKE Ethan Terry IN Terry ITEM idcard x002 ACTOR Sydney Sydney" or  "Ethan threatens Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney"  "Ethan blackmails Terry"  "Ethan bribes Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney"  "Ethan socially engineers Terry"  "Ethan acquires Terry trust and tricks him into executing IN Terry ITEM idcard x002 ACTOR Sydney Sydney" ;
+"Ethan blackmails Terry" seqand  "Ethan collects some intel about Terry"  "Ethan blackmails Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney" ;
+"Ethan socially engineers Terry" or  "authority attack"  "phishing attack" ;
+"authority attack" seqand  "Ethan impersonates authority"  "Ethan orders Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney" ;
+"phishing attack" seqand  "Ethan collects information about Terry"  "Ethan launches a phishing attack targeted at Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney" ;
+"Ethan acquires Terry trust and tricks him into executing IN Terry ITEM idcard x002 ACTOR Sydney Sydney" seqand  "Ethan becomes friends with Terry"  "Ethan tricks Terry into executing IN Terry ITEM idcard x002 ACTOR Sydney Sydney" ;
+"MAKE Ethan Terry IN Terry DATA pin x006 ITEM idcard x002" or  "Ethan threatens Terry to execute IN Terry DATA pin x006 ITEM idcard x002"  "Ethan blackmails Terry"  "Ethan bribes Terry to execute IN Terry DATA pin x006 ITEM idcard x002"  "Ethan socially engineers Terry"  "Ethan acquires Terry trust and tricks him into executing IN Terry DATA pin x006 ITEM idcard x002" ;
+"Ethan acquires Terry trust and tricks him into executing IN Terry DATA pin x006 ITEM idcard x002" seqand  "Ethan becomes friends with Terry"  "Ethan tricks Terry into executing IN Terry DATA pin x006 ITEM idcard x002" ;
+
+"Ethan threatens Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney" lambda=1.0 dorm=0 prob=0.75;		
+"Ethan collects some intel about Terry" lambda=0.041666668 dorm=0 prob=0.75;		
+"Ethan blackmails Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney" lambda=0.041666668 dorm=0 prob=0.25;		
+"Ethan bribes Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney" lambda=1.0 dorm=0 prob=0.5;		
+"Ethan impersonates authority" lambda=0.041666668 dorm=0 prob=0.25;		
+"Ethan orders Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney" lambda=0.0013888889 dorm=0 prob=0.25;		
+"Ethan collects information about Terry" lambda=0.041666668 dorm=0 prob=0.75;		
+"Ethan launches a phishing attack targeted at Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney" lambda=0.041666668 dorm=0 prob=0.5;		
+"Ethan becomes friends with Terry" lambda=0.041666668 dorm=0 prob=0.75;		
+"Ethan tricks Terry into executing IN Terry ITEM idcard x002 ACTOR Sydney Sydney" lambda=1.0 dorm=0 prob=0.5;		
+"Ethan threatens Terry to execute IN Terry DATA pin x006 ITEM idcard x002" lambda=1.0 dorm=0 prob=0.75;		
+"Ethan collects some intel about Terry" lambda=0.041666668 dorm=0 prob=0.75;		
+"Ethan blackmails Terry to execute IN Terry DATA pin x006 ITEM idcard x002" lambda=0.041666668 dorm=0 prob=0.25;		
+"Ethan bribes Terry to execute IN Terry DATA pin x006 ITEM idcard x002" lambda=1.0 dorm=0 prob=0.5;		
+"Ethan impersonates authority" lambda=0.041666668 dorm=0 prob=0.25;		
+"Ethan orders Terry to execute IN Terry DATA pin x006 ITEM idcard x002" lambda=0.0013888889 dorm=0 prob=0.25;		
+"Ethan collects information about Terry" lambda=0.041666668 dorm=0 prob=0.75;		
+"Ethan launches a phishing attack targeted at Terry to execute IN Terry DATA pin x006 ITEM idcard x002" lambda=0.041666668 dorm=0 prob=0.5;		
+"Ethan becomes friends with Terry" lambda=0.041666668 dorm=0 prob=0.75;		
+"Ethan tricks Terry into executing IN Terry DATA pin x006 ITEM idcard x002" lambda=1.0 dorm=0 prob=0.5;		

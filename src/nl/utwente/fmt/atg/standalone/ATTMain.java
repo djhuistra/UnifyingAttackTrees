@@ -1,17 +1,48 @@
 package nl.utwente.fmt.atg.standalone;
 
+import java.io.File;
+import java.io.IOException;
+
 public class ATTMain {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IOException{
 
-			// From Input -> MM (Select 1)
-//			new ATA2MMStandalone().execute();
-//			new ADTool2MM().execute();
+		if(args.length > 0) {
+		  	File jarPath=new File(ATTMain.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+	        String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+	        String filePath=propertiesPath+"\\"+args[0];
+	        //System.out.println("FilePath: "+filePath);
+	        
+	        
+	        File modelFile = new File(propertiesPath+"\\Instance.model");
+	        modelFile.createNewFile();
+	        
+	        String modelFileURI = modelFile.toURI().toString();
+	        
+	        //ToDO: Kijk naar TEMP FIles
+	        // e.g. http://stackoverflow.com/questions/617414/create-a-temporary-directory-in-java
+	        
+	        
+	        //prop.load(new FileInputStream(propertiesPath+"/resource/locations.properties"));
+			try {
+				
+				// From Input -> MM (Select 1)
+				new ADTool2MM(filePath, modelFileURI).execute();
+//				new ATA2MMStandalone().execute();
+				
+				
+				// from MM -> Output (Select 1)
+				new MM2ATCalcStandalone(modelFileURI).execute();
+		//		new MM2ADTool().execute();
+				
+			} catch (Exception e) {
+				// TODO Error is ignored;
+				//e.printStackTrace();
+			}
 			
-			// from MM -> Output (Select 1)
-	//		new MM2ATCalcStandalone().execute();
-			new MM2ADTool().execute();
-
+		} else {
+			System.out.println("Specify <input_file>");
+		}
 	}
 
 }

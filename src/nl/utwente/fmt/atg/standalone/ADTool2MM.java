@@ -9,6 +9,13 @@ import org.eclipse.epsilon.etl.EtlModule;
 
 public class ADTool2MM extends EpsilonStandaloneExample {
 	
+	private String inputFilePath;
+	private String outputFilePath;
+	public ADTool2MM(String filePath, String output) {
+		inputFilePath = filePath;
+		outputFilePath = output;
+	}
+
 	@Override
 	public IEolExecutableModule createModule() {
 		return new EtlModule();
@@ -17,9 +24,12 @@ public class ADTool2MM extends EpsilonStandaloneExample {
 	@Override
 	public List<IModel> getModels() throws Exception {
 		List<IModel> models = new ArrayList<IModel>();
-
-		models.add(createEmfModel("UATMM", "models/Instance.model", "models/UATMM.ecore", false, true));
-		models.add(createPlainXmlModel3("ADTool", "models/ADTI.xml", true, false));
+		
+		models.add(createPlainXmlModel4("ADTool", inputFilePath, true, false));
+		//models.add(createEmfModel("UATMM", "models/Instance.model", "models/UATMM.ecore", false, true));
+		models.add(createEmfModel2("UATMM", outputFilePath, "models/UATMM.ecore", false, true));
+		//models.add(createPlainXmlModel3("ADTool", "models/ADTI.xml", true, false));
+		
 		return models;
 	}
 
