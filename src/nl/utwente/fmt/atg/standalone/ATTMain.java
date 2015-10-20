@@ -13,11 +13,15 @@ public class ATTMain {
 	        String filePath=propertiesPath+"\\"+args[0];
 	        //System.out.println("FilePath: "+filePath);
 	        
+	        File tempModelInstance = File.createTempFile("AttackTree-MetaModel-Instance", ".tmp"); 
 	        
-	        File modelFile = new File(propertiesPath+"\\Instance.model");
-	        modelFile.createNewFile();
+	      //delete temporary file when the program is exited
+	        tempModelInstance.deleteOnExit();
 	        
-	        String modelFileURI = modelFile.toURI().toString();
+	        //File modelFile = new File(propertiesPath+"\\Instance.model");
+	        //modelFile.createNewFile();
+	        
+	        String modelFileURI = tempModelInstance.toURI().toString();
 	        
 	        //ToDO: Kijk naar TEMP FIles
 	        // e.g. http://stackoverflow.com/questions/617414/create-a-temporary-directory-in-java
