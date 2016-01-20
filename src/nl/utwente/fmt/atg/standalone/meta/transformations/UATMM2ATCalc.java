@@ -7,14 +7,14 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.utwente.fmt.atg.standalone.EpsilonStandaloneExample;
+import nl.utwente.fmt.atg.standalone.AbstractStandaloneTransformation;
 
 import org.eclipse.epsilon.egl.EglTemplateFactory;
 import org.eclipse.epsilon.egl.EglTemplateFactoryModuleAdapter;
 import org.eclipse.epsilon.eol.IEolExecutableModule;
 import org.eclipse.epsilon.eol.models.IModel;
 
-public class UATMM2ATCalc extends EpsilonStandaloneExample {
+public class UATMM2ATCalc extends AbstractStandaloneTransformation {
 
 	private String inputFilePath;
 	private String outputFilePath;

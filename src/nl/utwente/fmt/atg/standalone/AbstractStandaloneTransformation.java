@@ -19,7 +19,7 @@ import org.eclipse.epsilon.eol.models.IModel;
  * Generic abstract class that specifies the abstract meta-info 
  * required for running a transformation with java.
  */
-public abstract class EpsilonStandaloneExample {
+public abstract class AbstractStandaloneTransformation {
   
   protected IEolExecutableModule module;
   protected List<Variable> parameters = new ArrayList<Variable>();
@@ -195,7 +195,7 @@ public abstract class EpsilonStandaloneExample {
   
 	protected URI getFileURI(String fileName) throws URISyntaxException {
 		
-		URI binUri = EpsilonStandaloneExample.class.
+		URI binUri = AbstractStandaloneTransformation.class.
 				getResource(fileName).toURI();
 		URI uri = null;
 		

@@ -3,7 +3,7 @@ package nl.utwente.fmt.atg.standalone.transformers;
 import java.io.File;
 import java.io.IOException;
 
-import nl.utwente.fmt.atg.standalone.EpsilonStandaloneExample;
+import nl.utwente.fmt.atg.standalone.AbstractStandaloneTransformation;
 import nl.utwente.fmt.atg.standalone.meta.transformations.*;
 
 public class ADTool2ADToolBinary implements ITransformer {
@@ -11,9 +11,9 @@ public class ADTool2ADToolBinary implements ITransformer {
 	private String inputFilePath;
 	private String outputFilePath;
 	
-	private EpsilonStandaloneExample ADTool2UATMM;
-	private EpsilonStandaloneExample UATMM2ATCalc;
-	private EpsilonStandaloneExample UATMM2BinaryUATMM;
+	private AbstractStandaloneTransformation ADTool2UATMM;
+	private AbstractStandaloneTransformation UATMM2ATCalc;
+	private AbstractStandaloneTransformation UATMM2BinaryUATMM;
 	
 	public ADTool2ADToolBinary(String inputfilePath, String outputfilePath){
 		this.inputFilePath = inputfilePath;

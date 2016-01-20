@@ -3,13 +3,13 @@ package nl.utwente.fmt.atg.standalone.meta.transformations;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.utwente.fmt.atg.standalone.EpsilonStandaloneExample;
+import nl.utwente.fmt.atg.standalone.AbstractStandaloneTransformation;
 
 import org.eclipse.epsilon.eol.IEolExecutableModule;
 import org.eclipse.epsilon.eol.models.IModel;
 import org.eclipse.epsilon.etl.EtlModule;
 
-public class ATA2UATMM extends EpsilonStandaloneExample {
+public class ATA2UATMM extends AbstractStandaloneTransformation {
 	
 	private String inputFilePath;
 	private String outputFilePath;

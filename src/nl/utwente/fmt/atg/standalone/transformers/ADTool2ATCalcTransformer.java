@@ -3,17 +3,16 @@ package nl.utwente.fmt.atg.standalone.transformers;
 import java.io.File;
 import java.io.IOException;
 
-import nl.utwente.fmt.atg.standalone.EpsilonStandaloneExample;
-import nl.utwente.fmt.atg.standalone.meta.transformations.ADTool2UATMM;
-import nl.utwente.fmt.atg.standalone.meta.transformations.UATMM2ATCalc;
+import nl.utwente.fmt.atg.standalone.AbstractStandaloneTransformation;
+import nl.utwente.fmt.atg.standalone.meta.transformations.*;
 
 public class ADTool2ATCalcTransformer implements ITransformer {
 
 	private String inputFilePath;
 	private String outputFilePath;
 	
-	private EpsilonStandaloneExample ADTool2UATMM;
-	private EpsilonStandaloneExample UATMM2ATCalc;
+	private AbstractStandaloneTransformation ADTool2UATMM;
+	private AbstractStandaloneTransformation UATMM2ATCalc;
 	
 	public ADTool2ATCalcTransformer(String inputfilePath, String outputfilePath){
 		this.inputFilePath = inputfilePath;
@@ -38,7 +37,7 @@ public class ADTool2ATCalcTransformer implements ITransformer {
 	    
 	    // Initialize first transformation.
 		ADTool2UATMM = new ADTool2UATMM(inputFilePath, modelFileURI);
-		
+
 		// We assume the file does not exist, thus create it and obtain its URI.
         File tmp2 = new File(outputFilePath);
         try {
