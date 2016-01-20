@@ -17,9 +17,11 @@ import org.eclipse.epsilon.eol.models.IModel;
 public class UATMM2ATCalc extends EpsilonStandaloneExample {
 
 	private String inputFilePath;
+	private String outputFilePath;
 	
-	public UATMM2ATCalc(String modelFileURI) {
-		inputFilePath = modelFileURI;
+	public UATMM2ATCalc(String filePath, String output) {
+		inputFilePath = filePath;
+		outputFilePath = output;
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public class UATMM2ATCalc extends EpsilonStandaloneExample {
 	@Override
 	public void postProcess() {
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-	              new FileOutputStream("ATCalcInput.txt"), "utf-8"))) {
+	              new FileOutputStream(outputFilePath), "utf-8"))) {
 		writer.write(result.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
