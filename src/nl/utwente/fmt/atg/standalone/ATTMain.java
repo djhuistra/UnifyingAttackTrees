@@ -1,6 +1,7 @@
 package nl.utwente.fmt.atg.standalone;
 
 import static nl.utwente.fmt.atg.standalone.ATTMain.Language.AD_TOOL;
+import static nl.utwente.fmt.atg.standalone.ATTMain.Language.AD_TOOL_BINARY;
 import static nl.utwente.fmt.atg.standalone.ATTMain.Language.ATA;
 import static nl.utwente.fmt.atg.standalone.ATTMain.Language.AT_CALC;
 import static nl.utwente.fmt.atg.standalone.ATTMain.Language.UAT;
@@ -9,12 +10,13 @@ import java.io.File;
 import java.util.Arrays;
 
 import nl.utwente.fmt.atg.standalone.meta.transformations.*;
+import nl.utwente.fmt.atg.standalone.transformers.ADTool2ADToolBinary;
 import nl.utwente.fmt.atg.standalone.transformers.ADTool2ATCalcTransformer;
 import nl.utwente.fmt.atg.standalone.transformers.ITransformer;
 
 public class ATTMain {
 	public final static Language DEFAULT_SOURCE = AD_TOOL;
-	public final static Language DEFAULT_TARGET = AT_CALC;
+	public final static Language DEFAULT_TARGET = AD_TOOL_BINARY;
 
 	public static void main(String[] args) throws Exception {
 		if (args.length != 0 && args.length != 3) {
@@ -59,14 +61,17 @@ public class ATTMain {
 	 * Returns a transformer from a given source to target language
 	 * @param source Source language for transformation
 	 * @param target Target language for transformation
-	 * @return a standalone transformation from source to target language, or <code>null</code>
-	 * if no such transformation can be defined
+	 * @param inputFilePath File path of the input file of the transformation.
+	 * @return a Transformer from source to target language, or <code>null</code>
+	 * if no such Transformer is defined
 	 */
 	private static ITransformer getTransformer(Language source,
 			Language target, String inputFilePath) {
 		ITransformer transformer;
 		if(source == AD_TOOL && target == AT_CALC){
 			transformer = new ADTool2ATCalcTransformer(inputFilePath, "ATCalcInput.txt");
+		} else if(source == AD_TOOL && target == AD_TOOL_BINARY){
+			transformer = new ADTool2ADToolBinary(inputFilePath, "ADtoolBinary.xml");
 //		if (source == ATA && target == UAT) {
 //			example = new ATA2UATMM();
 //		} else if (source == AD_TOOL && target == UAT) {
@@ -89,6 +94,7 @@ public class ATTMain {
 		UAT,
 		ATA,
 		AD_TOOL,
+		AD_TOOL_BINARY,
 		AT_CALC,;
 	}
 }
