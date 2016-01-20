@@ -1,0 +1,41 @@
+"Starting MM2BinaryMM transformation".println();
+var at := AttackTree.all.first();
+var defaultRole := Role.allInstances.select(n|n.RoleType=RoleType#Contributing).first();
+at.Root.NodeToBinary();
+Model.store(Model.modelFile + 'copy.model');
+
+"Completed MM2BinaryMM transformation".println();
+
+operation Node NodeToBinary(){
+
+
+	if(self.Children.size()>2){
+
+		var newNode = new Node();
+		newNode.Label = "ChildrenToBinary";
+		at.Nodes.add(newNode);
+		newNode.Role = defaultRole;
+		newNode.Connector = self.determineConnector();
+		
+		var subset2 := self.Children.excluding(self.Children.first());
+		
+		newNode.Parents.add(self);
+		newNode.Children := subset2;
+		
+		self.Children.removeAll(subset2);
+		self.Children.add(newNode);
+	} 
+	
+	for(child in self.Children){
+		child.NodeToBinary();
+	}
+}
+
+
+operation Node determineConnector() : Connector{
+	if(self.Connector.isTypeOf(OR)){
+		return new OR();
+	} else {
+		return new AND();
+	}
+}
