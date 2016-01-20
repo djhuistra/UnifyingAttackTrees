@@ -10,8 +10,8 @@ public class ATTMain {
 		if(args.length > 0) {
 		  	File jarPath=new File(ATTMain.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 	        String propertiesPath=jarPath.getParentFile().getAbsolutePath();
-	        String filePath=propertiesPath+"\\"+args[0];
-	        //System.out.println("FilePath: "+filePath);
+	        String filePath=propertiesPath+File.separator+args[0];
+	        System.out.println("Input FilePath: "+filePath);
 	        
 	        File tempModelInstance = File.createTempFile("AttackTree-MetaModel-Instance", ".tmp"); 
 	        
