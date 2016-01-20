@@ -30,7 +30,13 @@ public class UATMM2ATCalc extends EpsilonStandaloneExample {
 	@Override
 	public List<IModel> getModels() throws Exception {
 		List<IModel> models = new ArrayList<IModel>();
+		
+		// Input model
 		models.add(createEmfModel2("UATMM", inputFilePath, "models/UATMM.ecore", true, false));
+		
+		// Output model
+		// EGL transformation does not have output model, only generated output string.
+		
 		return models;
 	}
 

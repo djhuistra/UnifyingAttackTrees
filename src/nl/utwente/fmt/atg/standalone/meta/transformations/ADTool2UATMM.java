@@ -27,10 +27,11 @@ public class ADTool2UATMM extends EpsilonStandaloneExample {
 	public List<IModel> getModels() throws Exception {
 		List<IModel> models = new ArrayList<IModel>();
 		
+		// Input model
 		models.add(createPlainXmlModel4("ADTool", inputFilePath, true, false));
-		//models.add(createEmfModel("UATMM", "models/Instance.model", "models/UATMM.ecore", false, true));
+		
+		// Output model
 		models.add(createEmfModel2("UATMM", outputFilePath, "models/UATMM.ecore", false, true));
-		//models.add(createPlainXmlModel3("ADTool", "models/ADTI.xml", true, false));
 		
 		return models;
 	}
@@ -42,6 +43,6 @@ public class ADTool2UATMM extends EpsilonStandaloneExample {
 
 	@Override
 	public void postProcess() {
-		//System.out.println(result);
+		//No explicit output. Result is placed in output model.
 	}
 }

@@ -3,8 +3,7 @@ package nl.utwente.fmt.atg.standalone;
 import java.io.File;
 import java.io.IOException;
 
-import nl.utwente.fmt.atg.standalone.meta.transformations.ADTool2UATMM;
-import nl.utwente.fmt.atg.standalone.meta.transformations.UATMM2ATCalc;
+import nl.utwente.fmt.atg.standalone.meta.transformations.*;
 
 public class ATTMainOld{
 
@@ -35,8 +34,8 @@ public class ATTMainOld{
 				//new ATA2MMStandalone().execute();
 				
 				// from MM -> Output (Select 1)
-				new UATMM2ATCalc(modelFileURI).execute();
-				//new MM2ADTool().execute();
+				//new UATMM2ATCalc(modelFileURI).execute();
+				new UATMM2ADTool(modelFileURI).execute();
 				
 			} catch (Exception e) {
 				// TODO Error is ignored;

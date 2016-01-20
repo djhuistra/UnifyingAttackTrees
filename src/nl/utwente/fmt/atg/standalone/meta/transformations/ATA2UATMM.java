@@ -11,6 +11,13 @@ import org.eclipse.epsilon.etl.EtlModule;
 
 public class ATA2UATMM extends EpsilonStandaloneExample {
 	
+	private String inputFilePath;
+	private String outputFilePath;
+	public ATA2UATMM(String filePath, String output) {
+		inputFilePath = filePath;
+		outputFilePath = output;
+	}
+	
 	@Override
 	public IEolExecutableModule createModule() {
 		return new EtlModule();
@@ -20,18 +27,22 @@ public class ATA2UATMM extends EpsilonStandaloneExample {
 	public List<IModel> getModels() throws Exception {
 		List<IModel> models = new ArrayList<IModel>();
 
-		models.add(createEmfModel("UATMM", "models/Instance.model", "models/UATMM.ecore", false, true));
-		models.add(createPlainXmlModel3("ATA", "models/ATA_SMALL.xml", true, false));
+		// Input model
+		models.add(createPlainXmlModel4("ATA", inputFilePath, true, false));
+		
+		// Output model
+		models.add(createEmfModel2("UATMM", outputFilePath, "models/UATMM.ecore", false, true));
+		
 		return models;
 	}
 
 	@Override
 	public String getSource() throws Exception {
-		return "transformations/ATA2MM(ADToolDomains).etl";
+		return "transformations/ATA2UATMM(ADToolDomains).etl";
 	}
 
 	@Override
 	public void postProcess() {
-		//System.out.println(result);
+		//No explicit output. Result is placed in output model.
 	}
 }
