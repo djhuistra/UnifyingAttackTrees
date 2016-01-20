@@ -46,8 +46,6 @@ public class ATTMain {
 	        String propertiesPath=jarPath.getParentFile().getAbsolutePath();
 	        inputFilePath=propertiesPath+File.separator+inputFileName;
 		}
-
-		// TODO: Get and do something with input and output file path
 		transformer = getTransformer(source, target, inputFilePath);
 		if (transformer == null) {
 			System.err.printf("Can't transform from %s to %s%n", source, target);
