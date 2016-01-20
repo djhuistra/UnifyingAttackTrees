@@ -1,4 +1,4 @@
-package nl.utwente.fmt.atg.standalone.metatransformations;
+package nl.utwente.fmt.atg.standalone.meta.transformations;
 
 import java.util.ArrayList;
 import java.util.List;
