@@ -19,7 +19,7 @@ public class ATTMainOld{
 	        
 	        // Create temporary metamodel instance file.
 	        File tempModelInstance = File.createTempFile("AttackTree-MetaModel-Instance", ".tmp"); 
-	        String modelFileURI = tempModelInstance.toURI().toString();
+	        String modelFileURI = tempModelInstance.toURI().getPath();
 	        
 	        //delete temporary file when the program is exited
 	        tempModelInstance.deleteOnExit();

@@ -5,22 +5,25 @@ import static nl.utwente.fmt.atg.standalone.ATTMain.Language.ATA;
 import static nl.utwente.fmt.atg.standalone.ATTMain.Language.AT_CALC;
 import static nl.utwente.fmt.atg.standalone.ATTMain.Language.UAT;
 
+import java.io.File;
 import java.util.Arrays;
 
 import nl.utwente.fmt.atg.standalone.meta.transformations.*;
+import nl.utwente.fmt.atg.standalone.transformers.ADTool2ATCalcTransformer;
+import nl.utwente.fmt.atg.standalone.transformers.ITransformer;
 
 public class ATTMain {
-	public final static Language DEFAULT_SOURCE = UAT;
-	public final static Language DEFAULT_TARGET = AD_TOOL;
+	public final static Language DEFAULT_SOURCE = AD_TOOL;
+	public final static Language DEFAULT_TARGET = AT_CALC;
 
 	public static void main(String[] args) throws Exception {
-		if (args.length != 0 && args.length != 2) {
-			System.err.printf("Usage: ATTMain [source target]%n");
+		if (args.length != 0 && args.length != 3) {
+			System.err.printf("Usage: ATTMain [source target input-model]%n");
 			System.err.printf("Parameters: source, target chosen out of %s%n", languageList());
 			System.err.printf("Default: source = %s, target = %s%n", DEFAULT_SOURCE, DEFAULT_TARGET);
 			System.exit(1);
 		}
-		EpsilonStandaloneExample example;
+		ITransformer transformer;
 		Language source = args.length == 0 ? DEFAULT_SOURCE : Language.valueOf(args[0]);
 		if (source == null) {
 			System.err.printf("Source = %s is not a regognised language", args[0]);
@@ -33,12 +36,25 @@ public class ATTMain {
 			System.err.printf("Choose from: ", languageList());
 			System.exit(1);
 		}
-		example = getTransformer(source, target);
-		if (example == null) {
+		String inputFilePath = null;
+		String inputFileName = args.length == 0 ? "ADTI.xml" : args[2];
+		if (inputFileName == null) {
+			System.err.printf("Invalid input file");
+			System.exit(1);
+		} else {
+			File jarPath=new File(ATTMain.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+	        String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+	        inputFilePath=propertiesPath+File.separator+inputFileName;
+		}
+
+		// TODO: Get and do something with input and output file path
+		transformer = getTransformer(source, target, inputFilePath);
+		if (transformer == null) {
 			System.err.printf("Can't transform from %s to %s%n", source, target);
 			System.exit(1);
 		}
-		example.execute();
+		transformer.initialize();
+		transformer.execute();
 	}
 
 	/**
@@ -48,21 +64,23 @@ public class ATTMain {
 	 * @return a standalone transformation from source to target language, or <code>null</code>
 	 * if no such transformation can be defined
 	 */
-	private static EpsilonStandaloneExample getTransformer(Language source,
-			Language target) {
-		EpsilonStandaloneExample example;
-		if (source == ATA && target == UAT) {
-			example = new ATA2UATMM();
-		} else if (source == AD_TOOL && target == UAT) {
-			example = new ADTool2UATMM();
-		} else if (source == UAT && target == AD_TOOL) {
-			example = new UATMM2ADTool();
-		} else if (source == UAT && target == AT_CALC) {
-			example = new UATMM2ATCalc();
+	private static ITransformer getTransformer(Language source,
+			Language target, String inputFilePath) {
+		ITransformer transformer;
+		if(source == AD_TOOL && target == AT_CALC){
+			transformer = new ADTool2ATCalcTransformer(inputFilePath, "ATCalcInput.txt");
+//		if (source == ATA && target == UAT) {
+//			example = new ATA2UATMM();
+//		} else if (source == AD_TOOL && target == UAT) {
+//			example = new ADTool2UATMM();
+//		} else if (source == UAT && target == AD_TOOL) {
+//			example = new UATMM2ADTool();
+//		} else if (source == UAT && target == AT_CALC) {
+//			example = new UATMM2ATCalc();
 		} else {
-			example = null;
+			transformer = null;
 		}
-		return example;
+		return transformer;
 	}
 	
 	static public String languageList() {
