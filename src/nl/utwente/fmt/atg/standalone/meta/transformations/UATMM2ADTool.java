@@ -12,9 +12,11 @@ import org.eclipse.epsilon.etl.EtlModule;
 public class UATMM2ADTool extends EpsilonStandaloneExample {
 	
 	private String inputFilePath;
+	private String outputFilePath;
 	
-	public UATMM2ADTool(String modelFileURI) {
-		inputFilePath = modelFileURI;
+	public UATMM2ADTool(String filePath, String output) {
+		inputFilePath = filePath;
+		outputFilePath = output;
 	}
 	
 	@Override
@@ -30,7 +32,7 @@ public class UATMM2ADTool extends EpsilonStandaloneExample {
 		models.add(createEmfModel2("UATMM", inputFilePath, "models/UATMM.ecore", true, false));
 		
 		// Output model
-		models.add(createPlainXmlModel3("ADTool", "models/temp.xml", false, true));
+		models.add(createPlainXmlModel4("ADTool", outputFilePath, false, true));
 
 		return models;
 	}
@@ -42,6 +44,6 @@ public class UATMM2ADTool extends EpsilonStandaloneExample {
 
 	@Override
 	public void postProcess() {
-		System.out.println(result.toString());
+		//Output is written to output model
 	}
 }

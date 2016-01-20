@@ -34,8 +34,14 @@ public class ATTMainOld{
 				//new ATA2MMStandalone().execute();
 				
 				// from MM -> Output (Select 1)
-				//new UATMM2ATCalc(modelFileURI).execute();
-				new UATMM2ADTool(modelFileURI).execute();
+				new UATMM2ATCalc(modelFileURI).execute();
+				
+		        // TMP: Create a new file, and give it's URI as output to transformer.
+		        File tmp = new File("ADToolInput.xml");
+		        tmp.createNewFile();
+		        String modelFileURI3 = tmp.toURI().getPath();
+
+				new UATMM2ADTool(modelFileURI, modelFileURI3).execute();
 				
 			} catch (Exception e) {
 				// TODO Error is ignored;
