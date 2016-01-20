@@ -1,4 +1,4 @@
-package nl.utwente.fmt.atg.standalone;
+package nl.utwente.fmt.atg.standalone.metatransformations;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -7,16 +7,18 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.utwente.fmt.atg.standalone.EpsilonStandaloneExample;
+
 import org.eclipse.epsilon.egl.EglTemplateFactory;
 import org.eclipse.epsilon.egl.EglTemplateFactoryModuleAdapter;
 import org.eclipse.epsilon.eol.IEolExecutableModule;
 import org.eclipse.epsilon.eol.models.IModel;
 
-public class MM2ATCalcStandalone extends EpsilonStandaloneExample {
+public class UATMM2ATCalc extends EpsilonStandaloneExample {
 
 	private String inputFilePath;
 	
-	public MM2ATCalcStandalone(String modelFileURI) {
+	public UATMM2ATCalc(String modelFileURI) {
 		inputFilePath = modelFileURI;
 	}
 
@@ -34,7 +36,7 @@ public class MM2ATCalcStandalone extends EpsilonStandaloneExample {
 
 	@Override
 	public String getSource() throws Exception {
-		return "transformations/MM(ADToolDomains)2ATA.egl";
+		return "transformations/UATMM(ADToolDomains)2ATCalc.egl";
 	}
 
 	@Override

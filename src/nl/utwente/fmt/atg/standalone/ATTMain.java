@@ -3,6 +3,16 @@ package nl.utwente.fmt.atg.standalone;
 import java.io.File;
 import java.io.IOException;
 
+import nl.utwente.fmt.atg.standalone.metatransformations.ADTool2UATMM;
+import nl.utwente.fmt.atg.standalone.metatransformations.UATMM2ATCalc;
+
+/**
+ * Main class of standalone transformation project.
+ * 
+ * This class reads the input argument for a file, creates a temporary store and 
+ * runs a sequence of transformations
+ *
+ */
 public class ATTMain {
 
 	public static void main(String[] args) throws IOException{
@@ -13,31 +23,27 @@ public class ATTMain {
 	        String filePath=propertiesPath+File.separator+args[0];
 	        System.out.println("Input FilePath: "+filePath);
 	        
+	        
+	        // Create temporary metamodel instance file.
 	        File tempModelInstance = File.createTempFile("AttackTree-MetaModel-Instance", ".tmp"); 
-	        
-	      //delete temporary file when the program is exited
-	        tempModelInstance.deleteOnExit();
-	        
-	        //File modelFile = new File(propertiesPath+"\\Instance.model");
-	        //modelFile.createNewFile();
-	        
 	        String modelFileURI = tempModelInstance.toURI().toString();
 	        
-	        //ToDO: Kijk naar TEMP FIles
-	        // e.g. http://stackoverflow.com/questions/617414/create-a-temporary-directory-in-java
+	        //delete temporary file when the program is exited
+	        tempModelInstance.deleteOnExit();
 	        
 	        
-	        //prop.load(new FileInputStream(propertiesPath+"/resource/locations.properties"));
+	        // Try the transformation sequence. 
+	        // Currently hardcoded sequence. From ADTool2MM, and then MM2ATCalc.
 			try {
 				
 				// From Input -> MM (Select 1)
-				new ADTool2MM(filePath, modelFileURI).execute();
-//				new ATA2MMStandalone().execute();
+				new ADTool2UATMM(filePath, modelFileURI).execute();
+				//new ATA2MMStandalone().execute();
 				
 				
 				// from MM -> Output (Select 1)
-				new MM2ATCalcStandalone(modelFileURI).execute();
-		//		new MM2ADTool().execute();
+				new UATMM2ATCalc(modelFileURI).execute();
+				//new MM2ADTool().execute();
 				
 			} catch (Exception e) {
 				// TODO Error is ignored;

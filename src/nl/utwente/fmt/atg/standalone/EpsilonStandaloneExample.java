@@ -15,6 +15,10 @@ import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.eol.models.IModel;
 
+/**
+ * Generic abstract class that specifies the abstract meta-info 
+ * required for running a transformation with java.
+ */
 public abstract class EpsilonStandaloneExample {
   
   protected IEolExecutableModule module;

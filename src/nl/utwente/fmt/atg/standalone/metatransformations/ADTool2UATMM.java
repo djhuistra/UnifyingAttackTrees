@@ -1,17 +1,19 @@
-package nl.utwente.fmt.atg.standalone;
+package nl.utwente.fmt.atg.standalone.metatransformations;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import nl.utwente.fmt.atg.standalone.EpsilonStandaloneExample;
 
 import org.eclipse.epsilon.eol.IEolExecutableModule;
 import org.eclipse.epsilon.eol.models.IModel;
 import org.eclipse.epsilon.etl.EtlModule;
 
-public class ADTool2MM extends EpsilonStandaloneExample {
+public class ADTool2UATMM extends EpsilonStandaloneExample {
 	
 	private String inputFilePath;
 	private String outputFilePath;
-	public ADTool2MM(String filePath, String output) {
+	public ADTool2UATMM(String filePath, String output) {
 		inputFilePath = filePath;
 		outputFilePath = output;
 	}
