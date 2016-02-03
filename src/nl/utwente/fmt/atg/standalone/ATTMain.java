@@ -31,11 +31,11 @@ public class ATTMain {
 		Language tgt = trafo.getTargetLanguage();
 		Map<Language, ITransformer> fromSrcTrafos = transformers.get(src);
 		if (!fromSrcTrafos.containsKey(tgt)) {
-			fromSrcTrafos.putAll(close(trafo));
+			close(fromSrcTrafos, trafo);
 			for (Map<Language, ITransformer> trafoMap : transformers.values()) {
 				if (trafoMap.containsKey(src) && !trafoMap.containsKey(tgt)) {
 					ITransformer toTgt = trafoMap.get(src).compose(trafo);
-					trafoMap.putAll(close(toTgt));
+					close(trafoMap, toTgt);
 				}
 			}
 		}
@@ -44,16 +44,15 @@ public class ATTMain {
 	/**
 	 * Builds the transitive closure for a given new transformer, by putting
 	 * it in front of all existing transformers starting from the target
-	 * language of the new transformer.
+	 * language of the new transformer; and adds those transformers to
+	 * an existing map if the map did not contain a value to that target language.
 	 */
-	private static Map<Language, ITransformer> close(ITransformer trafo) {
+	private static void close(Map<Language, ITransformer> map, ITransformer trafo) {
 		Language tgt = trafo.getTargetLanguage();
-		Map<Language, ITransformer> result = new EnumMap<>(Language.class);
-		result.put(tgt, trafo);
+		map.putIfAbsent(tgt, trafo);
 		for (ITransformer next : transformers.get(tgt).values()) {
-			result.put(next.getTargetLanguage(), trafo.compose(next));
+			map.putIfAbsent(next.getTargetLanguage(), trafo.compose(next));
 		}
-		return result;
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -67,16 +66,16 @@ public class ATTMain {
 		ITransformer transformer;
 		Language source = Language.getLanguage(args[0]);
 		if (source == null) {
-			System.err.printf("Source = %s is not a regognised language",
+			System.err.printf("Source = %s is not a regognised language%n",
 					args[0]);
-			System.err.printf("Choose from: ", languageList());
+			System.err.printf("Choose from: %s%n", languageList());
 			System.exit(1);
 		}
 		Language target = Language.getLanguage(args[1]);
 		if (target == null) {
 			System.err.printf("Source = %s is not a regognised language",
 					args[1]);
-			System.err.printf("Choose from: ", languageList());
+			System.err.printf("Choose from: %s%n", languageList());
 			System.exit(1);
 		}
 		File jarPath = new File(ATTMain.class.getProtectionDomain()

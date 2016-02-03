@@ -6,7 +6,7 @@ import java.util.TreeMap;
 
 public enum Language {
 	/** The Universal Attack Tree meta-model. */
-	UAT("UAT", "meta/UATMM.ecore"),
+	UAT("UATMM", "meta/UATMM.ecore"),
 	/** Attack Tree Analyzer XML format. */
 	ATA("ATA"),
 	/** ADTool XML format. */

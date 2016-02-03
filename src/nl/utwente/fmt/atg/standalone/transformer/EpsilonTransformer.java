@@ -104,7 +104,7 @@ public abstract class EpsilonTransformer implements ITransformer {
 		props.put(EmfModel.PROPERTY_NAME, language.getName());
 		props.put(EmfModel.PROPERTY_FILE_BASED_METAMODEL_URI,
 				toFileURI(language.getLocation()));
-		props.put(EmfModel.PROPERTY_MODEL_URI, toFileURI(model));
+		props.put(EmfModel.PROPERTY_MODEL_URI, model);
 		props.put(EmfModel.PROPERTY_READONLOAD, "" + (role == SOURCE));
 		props.put(EmfModel.PROPERTY_STOREONDISPOSAL, "" + (role == TARGET));
 
@@ -118,7 +118,7 @@ public abstract class EpsilonTransformer implements ITransformer {
 			URISyntaxException {
 		StringProperties props = new StringProperties();
 		props.put(PlainXmlModel.PROPERTY_NAME, getLanguage(role).getName());
-		props.put(PlainXmlModel.PROPERTY_URI, toFileURI(model));
+		props.put(PlainXmlModel.PROPERTY_URI, model);
 		props.put(PlainXmlModel.PROPERTY_READONLOAD, "" + (role == SOURCE));
 		props.put(PlainXmlModel.PROPERTY_STOREONDISPOSAL, "" + (role == TARGET));
 

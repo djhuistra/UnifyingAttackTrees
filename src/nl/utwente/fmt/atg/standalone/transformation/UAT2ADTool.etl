@@ -1,13 +1,13 @@
 pre {
 
   	var javaDate = new Native("java.util.Date");
-  	javaDate.toString().println("Starting UATMM2ADT transformation: ");
+  	javaDate.toString().println("Starting UAT2ADTool transformation: ");
   	
 }
 
 post {
  	var javaDate = new Native("java.util.Date");
-  	javaDate.toString().println("Completed UATMM2ADT transformation: ");
+  	javaDate.toString().println("Completed UAT2ADTool transformation: ");
 }
 
 @primary
