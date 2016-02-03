@@ -81,7 +81,7 @@ public class ATTMain {
 		}
 		File jarPath = new File(ATTMain.class.getProtectionDomain()
 				.getCodeSource().getLocation().getPath());
-		String propertiesPath = jarPath.getParentFile().getAbsolutePath();
+		String propertiesPath = System.getProperty("user.dir");//jarPath.getParentFile().getAbsolutePath();
 		String inputFileName = args[2];
 		String inputFilePath = propertiesPath + File.separator + inputFileName;
 		String outputFileName = args[3];

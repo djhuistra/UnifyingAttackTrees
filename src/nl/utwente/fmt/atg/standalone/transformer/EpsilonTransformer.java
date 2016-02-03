@@ -4,6 +4,7 @@ import static nl.utwente.fmt.atg.standalone.transformer.EpsilonTransformer.Role.
 import static nl.utwente.fmt.atg.standalone.transformer.EpsilonTransformer.Role.TARGET;
 
 import java.io.FileNotFoundException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -130,15 +131,18 @@ public abstract class EpsilonTransformer implements ITransformer {
 	 * Converts a file name into a file URI string, replacing any references to
 	 * "bin" directories in the path to "sub".
 	 */
-	protected String toFileURI(String fileName) throws FileNotFoundException,
+	protected URI toFileURI(String fileName) throws FileNotFoundException,
 			URISyntaxException {
+		URI result;
 		URL fileURL = Language.class.getResource(fileName);
 		if (fileURL == null) {
 			throw new FileNotFoundException(fileName + " not found");
 		}
-		String result = fileURL.toURI().toString();
-		if (result.contains("bin")) {
-			result = result.replaceAll("bin", "src");
+		URI fileURI = fileURL.toURI();
+		if (fileURI.toString().contains("bin")) {
+			result = new URI(fileURI.toString().replaceAll("bin", "src"));
+		} else {
+			result = fileURI;
 		}
 		return result;
 	}
