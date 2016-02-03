@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="UATMM" nsURI="http://UATMM/1.0" nsPrefix="UATMM">
+  <eClassifiers xsi:type="ecore:EClass" name="AttackTree">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Root" lowerBound="1" eType="#//Node"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Nodes" lowerBound="1" upperBound="-1"
+        eType="#//Node" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Edges" upperBound="-1"
+        eType="#//Edge" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Roles" lowerBound="1" upperBound="-1"
+        eType="#//Role" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Attributes" upperBound="-1"
+        eType="#//TreeAttribute" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Domains" upperBound="-1"
+        eType="#//Domain" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Node">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Role" eType="#//Role"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Connector" eType="#//Connector"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Children" upperBound="-1"
+        eType="#//Node" eOpposite="#//Node/Parents"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Parents" upperBound="-1"
+        eType="#//Node" eOpposite="#//Node/Children"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Target" upperBound="-1"
+        eType="#//Edge" eOpposite="#//Edge/Target"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Source" upperBound="-1"
+        eType="#//Edge" eOpposite="#//Edge/Source"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Attributes" upperBound="-1"
+        eType="#//Attribute" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Edge">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Target" lowerBound="1"
+        eType="#//Node" eOpposite="#//Node/Target"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Source" lowerBound="1"
+        eType="#//Node" eOpposite="#//Node/Source"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Role">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="RoleType" eType="#//RoleType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="RoleDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Dependency" eSuperTypes="#//Edge"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Trigger" eSuperTypes="#//Edge"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="RoleType">
+    <eLiterals name="Contributing"/>
+    <eLiterals name="Counteracting" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Connector"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AND" eSuperTypes="#//Connector"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OR" eSuperTypes="#//Connector"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XOR" eSuperTypes="#//Connector"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Attribute">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Derived" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Domain" lowerBound="1"
+        eType="#//Domain"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Domain">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Computation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TreeAttribute">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PAND" eSuperTypes="#//Connector"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TAND" eSuperTypes="#//Connector"/>
+  <eClassifiers xsi:type="ecore:EClass" name="K-Out-Of-N" eSuperTypes="#//Connector">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Treshold" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Weighted" eSuperTypes="#//Connector">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Treshold" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Weights" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList"/>
+  </eClassifiers>
+</ecore:EPackage>

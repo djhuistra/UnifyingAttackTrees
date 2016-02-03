@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adtree profit="1000000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://research.cyber.ee/~antonc/adtree.xsd">      
+	<node refinement="conjunctive">                                                
+		<label>get item x002 and extract data x006</label>                                                
+		<node refinement="disjunctive">
+			<label>MAKE Ethan Terry IN Terry ITEM idcard x002 ACTOR Sydney Sydney</label>
+			<node refinement="disjunctive">
+				<label>Ethan threatens Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney</label>
+				<parameter class="numeric" name="cost">50</parameter>
+				<parameter class="ordinal" name="likelihood">H</parameter>
+				<parameter class="ordinal" name="difficulty">M</parameter>
+				<parameter class="ordinal" name="time">HR</parameter>
+			</node>
+			<node refinement="conjunctive">
+				<label>Ethan blackmails Terry</label>
+				<node refinement="disjunctive">
+					<label>Ethan collects some intel about Terry</label>
+					<parameter class="numeric" name="cost">1000</parameter>
+					<parameter class="ordinal" name="likelihood">H</parameter>
+					<parameter class="ordinal" name="difficulty">M</parameter>
+					<parameter class="ordinal" name="time">D</parameter>
+				</node>
+				<node refinement="disjunctive">
+					<label>Ethan blackmails Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney</label>
+					<parameter class="numeric" name="cost">10000</parameter>
+					<parameter class="ordinal" name="likelihood">L</parameter>
+					<parameter class="ordinal" name="difficulty">H</parameter>
+					<parameter class="ordinal" name="time">D</parameter>
+				</node>
+			</node>
+			<node refinement="disjunctive">
+				<label>Ethan bribes Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney</label>
+				<parameter class="numeric" name="cost">2000</parameter>
+				<parameter class="ordinal" name="likelihood">M</parameter>
+				<parameter class="ordinal" name="difficulty">M</parameter>
+				<parameter class="ordinal" name="time">HR</parameter>
+			</node>
+			<node refinement="disjunctive">
+				<label>Ethan socially engineers Terry</label>
+				<node refinement="conjunctive">
+					<label>authority attack</label>
+					<node refinement="disjunctive">
+						<label>Ethan impersonates authority</label>
+						<parameter class="numeric" name="cost">0</parameter>
+						<parameter class="ordinal" name="likelihood">L</parameter>
+						<parameter class="ordinal" name="difficulty">V</parameter>
+						<parameter class="ordinal" name="time">D</parameter>
+					</node>
+					<node refinement="disjunctive">
+						<label>Ethan orders Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney</label>
+						<parameter class="numeric" name="cost">0</parameter>
+						<parameter class="ordinal" name="likelihood">L</parameter>
+						<parameter class="ordinal" name="difficulty">V</parameter>
+						<parameter class="ordinal" name="time">MT</parameter>
+					</node>
+				</node>
+				<node refinement="conjunctive">
+					<label>phishing attack</label>
+					<node refinement="disjunctive">
+						<label>Ethan collects information about Terry</label>
+						<parameter class="numeric" name="cost">1000</parameter>
+						<parameter class="ordinal" name="likelihood">H</parameter>
+						<parameter class="ordinal" name="difficulty">M</parameter>
+						<parameter class="ordinal" name="time">D</parameter>
+					</node>
+					<node refinement="disjunctive">
+						<label>Ethan launches a phishing attack targeted at Terry to execute IN Terry ITEM idcard x002 ACTOR Sydney Sydney</label>
+						<parameter class="numeric" name="cost">200</parameter>
+						<parameter class="ordinal" name="likelihood">M</parameter>
+						<parameter class="ordinal" name="difficulty">L</parameter>
+						<parameter class="ordinal" name="time">D</parameter>
+					</node>
+				</node>
+			</node>
+			<node refinement="conjunctive">
+				<label>Ethan acquires Terry trust and tricks him into executing IN Terry ITEM idcard x002 ACTOR Sydney Sydney</label>
+				<node refinement="disjunctive">
+					<label>Ethan becomes friends with Terry</label>
+					<parameter class="numeric" name="cost">300</parameter>
+					<parameter class="ordinal" name="likelihood">H</parameter>
+					<parameter class="ordinal" name="difficulty">M</parameter>
+					<parameter class="ordinal" name="time">D</parameter>
+				</node>
+				<node refinement="disjunctive">
+					<label>Ethan tricks Terry into executing IN Terry ITEM idcard x002 ACTOR Sydney Sydney</label>
+					<parameter class="numeric" name="cost">0</parameter>
+					<parameter class="ordinal" name="likelihood">M</parameter>
+					<parameter class="ordinal" name="difficulty">H</parameter>
+					<parameter class="ordinal" name="time">HR</parameter>
+				</node>
+			</node>
+		</node>                                                
+		<node refinement="disjunctive">
+			<label>MAKE Ethan Terry IN Terry DATA pin x006 ITEM idcard x002</label>
+			<node refinement="disjunctive">
+				<label>Ethan threatens Terry to execute IN Terry DATA pin x006 ITEM idcard x002</label>
+				<parameter class="numeric" name="cost">50</parameter>
+				<parameter class="ordinal" name="likelihood">H</parameter>
+				<parameter class="ordinal" name="difficulty">M</parameter>
+				<parameter class="ordinal" name="time">HR</parameter>
+			</node>
+			<node refinement="conjunctive">
+				<label>Ethan blackmails Terry</label>
+				<node refinement="disjunctive">
+					<label>Ethan collects some intel about Terry</label>
+					<parameter class="numeric" name="cost">1000</parameter>
+					<parameter class="ordinal" name="likelihood">H</parameter>
+					<parameter class="ordinal" name="difficulty">M</parameter>
+					<parameter class="ordinal" name="time">D</parameter>
+				</node>
+				<node refinement="disjunctive">
+					<label>Ethan blackmails Terry to execute IN Terry DATA pin x006 ITEM idcard x002</label>
+					<parameter class="numeric" name="cost">10000</parameter>
+					<parameter class="ordinal" name="likelihood">L</parameter>
+					<parameter class="ordinal" name="difficulty">H</parameter>
+					<parameter class="ordinal" name="time">D</parameter>
+				</node>
+			</node>
+			<node refinement="disjunctive">
+				<label>Ethan bribes Terry to execute IN Terry DATA pin x006 ITEM idcard x002</label>
+				<parameter class="numeric" name="cost">2000</parameter>
+				<parameter class="ordinal" name="likelihood">M</parameter>
+				<parameter class="ordinal" name="difficulty">M</parameter>
+				<parameter class="ordinal" name="time">HR</parameter>
+			</node>
+			<node refinement="disjunctive">
+				<label>Ethan socially engineers Terry</label>
+				<node refinement="conjunctive">
+					<label>authority attack</label>
+					<node refinement="disjunctive">
+						<label>Ethan impersonates authority</label>
+						<parameter class="numeric" name="cost">0</parameter>
+						<parameter class="ordinal" name="likelihood">L</parameter>
+						<parameter class="ordinal" name="difficulty">V</parameter>
+						<parameter class="ordinal" name="time">D</parameter>
+					</node>
+					<node refinement="disjunctive">
+						<label>Ethan orders Terry to execute IN Terry DATA pin x006 ITEM idcard x002</label>
+						<parameter class="numeric" name="cost">0</parameter>
+						<parameter class="ordinal" name="likelihood">L</parameter>
+						<parameter class="ordinal" name="difficulty">V</parameter>
+						<parameter class="ordinal" name="time">MT</parameter>
+					</node>
+				</node>
+				<node refinement="conjunctive">
+					<label>phishing attack</label>
+					<node refinement="disjunctive">
+						<label>Ethan collects information about Terry</label>
+						<parameter class="numeric" name="cost">1000</parameter>
+						<parameter class="ordinal" name="likelihood">H</parameter>
+						<parameter class="ordinal" name="difficulty">M</parameter>
+						<parameter class="ordinal" name="time">D</parameter>
+					</node>
+					<node refinement="disjunctive">
+						<label>Ethan launches a phishing attack targeted at Terry to execute IN Terry DATA pin x006 ITEM idcard x002</label>
+						<parameter class="numeric" name="cost">200</parameter>
+						<parameter class="ordinal" name="likelihood">M</parameter>
+						<parameter class="ordinal" name="difficulty">L</parameter>
+						<parameter class="ordinal" name="time">D</parameter>
+					</node>
+				</node>
+			</node>
+			<node refinement="conjunctive">
+				<label>Ethan acquires Terry trust and tricks him into executing IN Terry DATA pin x006 ITEM idcard x002</label>
+				<node refinement="disjunctive">
+					<label>Ethan becomes friends with Terry</label>
+					<parameter class="numeric" name="cost">300</parameter>
+					<parameter class="ordinal" name="likelihood">H</parameter>
+					<parameter class="ordinal" name="difficulty">M</parameter>
+					<parameter class="ordinal" name="time">D</parameter>
+				</node>
+				<node refinement="disjunctive">
+					<label>Ethan tricks Terry into executing IN Terry DATA pin x006 ITEM idcard x002</label>
+					<parameter class="numeric" name="cost">0</parameter>
+					<parameter class="ordinal" name="likelihood">M</parameter>
+					<parameter class="ordinal" name="difficulty">H</parameter>
+					<parameter class="ordinal" name="time">HR</parameter>
+				</node>
+			</node>
+		</node>                                                
+	</node>
+</adtree>

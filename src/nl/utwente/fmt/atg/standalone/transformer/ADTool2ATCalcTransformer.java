@@ -1,27 +1,22 @@
-package nl.utwente.fmt.atg.standalone.transformers;
+package nl.utwente.fmt.atg.standalone.transformer;
 
 import java.io.File;
 import java.io.IOException;
-
-import nl.utwente.fmt.atg.standalone.EpsilonStandaloneExample;
-import nl.utwente.fmt.atg.standalone.meta.transformations.ADTool2UATMM;
-import nl.utwente.fmt.atg.standalone.meta.transformations.UATMM2ATCalc;
 
 public class ADTool2ATCalcTransformer implements ITransformer {
 
 	private String inputFilePath;
 	private String outputFilePath;
 	
-	private EpsilonStandaloneExample ADTool2UATMM;
-	private EpsilonStandaloneExample UATMM2ATCalc;
+	private EpsilonTransformer ADTool2UATMM;
+	private EpsilonTransformer UATMM2ATCalc;
 	
 	public ADTool2ATCalcTransformer(String inputfilePath, String outputfilePath){
 		this.inputFilePath = inputfilePath;
 		this.outputFilePath = outputfilePath;
 	}
 	
-	public void initialize(){
-		
+	public void execute(String inputPath, String outputPath){
         // Create temporary metamodel instance file.
         File tempModelInstance = null;
 		try {
@@ -37,7 +32,7 @@ public class ADTool2ATCalcTransformer implements ITransformer {
 	    tempModelInstance.deleteOnExit();
 	    
 	    // Initialize first transformation.
-		ADTool2UATMM = new ADTool2UATMM(inputFilePath, modelFileURI);
+		EpsilonTransformer ADTool2UATMM = new ADTool2UAT();
 		
 		// We assume the file does not exist, thus create it and obtain its URI.
         File tmp2 = new File(outputFilePath);
@@ -50,14 +45,10 @@ public class ADTool2ATCalcTransformer implements ITransformer {
         String outputFileURI2 = tmp2.toURI().getPath();
   
         // Initalize second transformation;
-		UATMM2ATCalc = new UATMM2ATCalc(modelFileURI, outputFileURI2);
-		
-	}
-	
-	public void execute(){
+        EpsilonTransformer UATMM2ATCalc = new UAT2ATCalc();
 		try {
-			ADTool2UATMM.execute();
-			UATMM2ATCalc.execute();
+			ADTool2UATMM.execute(inputFilePath, modelFileURI);
+			UATMM2ATCalc.execute(modelFileURI, outputFilePath);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

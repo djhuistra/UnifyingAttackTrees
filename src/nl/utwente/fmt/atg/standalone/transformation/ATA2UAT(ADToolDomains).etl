@@ -1,0 +1,168 @@
+pre {
+
+  	var javaDate = new Native("java.util.Date");
+  	javaDate.toString().println("Starting ATA2M transformation: ");
+  	
+}
+
+post {
+ 	var javaDate = new Native("java.util.Date");
+  	javaDate.toString().println("Completed ATA2M transformation: ");
+}
+
+// Transform all domains and set several attributes by obtaining 
+// info from attributes and child nodes
+/*
+@primary
+rule ATADomain2UATDomain
+	transform ad : ATA!t_domain
+	to gad : UATMM!Domain {
+	
+	gad.ID = ad.a_id;
+	gad.Computation = true;
+}
+*/
+
+rule ATATree2UATTree
+	transform ad : ATA!t_adtree
+	to uat : UATMM!AttackTree {
+	
+	var role1 = new UATMM!Role();
+	role1.RoleType = UATMM!RoleType#Contributing;
+	role1.RoleDescription = "Attack";
+	
+	uat.Roles.add(role1);
+	
+	var domain1 = new UATMM!Domain();
+	domain1.ID = "DiffLMHE";
+	domain1.Computation = true;
+	
+	var domain2 = new UATMM!Domain();
+	domain2.ID = "MinCost";
+	domain2.Computation = true;
+	
+	var domain3 = new UATMM!Domain();
+	domain3.ID = "ProbSucc";
+	domain3.Computation = true;
+	
+	var domain4 = new UATMM!Domain();
+	domain4.ID = "MinTimeSeq";
+	domain4.Computation = true;
+	
+	uat.Domains.add(domain1);
+	uat.Domains.add(domain2);
+	uat.Domains.add(domain3);
+	uat.Domains.add(domain4);
+	
+	ad.e_node.recursiveXMLTeardown(true, null);
+}
+
+// Recursive XML Teardown operation. Called on XML node and will call method on all child nodes
+// Creates an ATNode, sets its parameters and sets parent/child relation to child ATNodes.
+operation ATA!t_node recursiveXMLTeardown(role : Boolean, parent : UATMM!Node) : UATMM!Node{
+	var children = self.c_node;
+	var parameters = self.c_parameter;
+	var result = new UATMM!Node();
+	
+	result.Label = self.e_label.text;
+	
+	result.Role = UATMM!Role.allInstances.select(n|n.RoleType=UATMM!RoleType#Contributing).first();
+
+	result.Connector = self.findConnector();
+		
+	getAttackTree().Nodes.add(result);
+	
+	// If there is a parent, add it.
+	if(parent<>null){
+		result.Parents.add(parent);
+	} else {
+		getAttackTree().Root = result;
+	}
+
+	// If node has any childeren, call method recursively and add references to results.
+	if(children.size()>0){
+		for(c in children){
+	  		result.Children.add(c.recursiveXMLTeardown(role, result));
+	 	}
+	
+	// If there are not any childeren, there can be paramters. Add 
+	} else {
+		for(p in parameters){
+			var param = new UATMM!Attribute();
+			param.Value = p.findValue();
+			param.Domain = p.findDomain();
+			result.Attributes.add(param);
+		}
+	}
+	
+	return result;
+}
+
+operation ATA!t_parameter findDomain(){
+
+	if (self.a_name.equals("cost")){
+		return UATMM!Domain.allInstances.select(d|d.ID=="MinCost").first();
+	} else 
+	if (self.a_name.equals("likelihood")){
+		return UATMM!Domain.allInstances.select(d|d.ID=="ProbSucc").first();
+	} else
+	if (self.a_name.equals("difficulty")){
+		return UATMM!Domain.allInstances.select(d|d.ID=="DiffLMHE").first();
+	} else
+	if (self.a_name.equals("time")){
+		return UATMM!Domain.allInstances.select(d|d.ID=="MinTimeSeq").first();
+	} else {
+		throw "Error";
+	}
+
+}
+
+operation ATA!t_parameter findValue(){
+
+	if (self.a_name.equals("cost")){
+		return self.text;
+	} else if (self.a_name.equals("likelihood")){
+			if(self.text.equals("L")) { return 0.25; }
+		else if(self.text.equals("M")) { return 0.5; }
+		else if(self.text.equals("H")) { return 0.75; }
+		else if(self.text.equals("V")) { return 1.0; }
+		else { throw "Error"; }
+	} else
+	if (self.a_name.equals("difficulty")){
+		if(self.text.equals("V")) { return "E"; }
+		else { return self.text; }
+	} else
+	if (self.a_name.equals("time")){
+			 if(self.text.equals("HR")) { return 1; }
+		else if(self.text.equals("D")) { return 24; }
+		else if(self.text.equals("MT")) { return 720; }
+		else { throw "Error"; }
+	} else {
+		throw "Error";
+	}
+	
+
+}
+
+operation ATA!t_node findConnector(){
+	if(self.a_refinement.equals("disjunctive")){
+		return new UATMM!OR();
+	} else {
+		return new UATMM!AND();
+	}
+}
+
+/*
+operation ATA!t_node findRole(role:Boolean){
+	if(role){
+		return UATMM!Role.allInstances.select(n|n.RoleType=UATMM!RoleType#Contributing).first();
+	} else {
+		return UATMM!Role.allInstances.select(n|n.RoleType=UATMM!RoleType#Counteracting).first();
+	}
+}
+*/
+
+@cached
+operation Any getAttackTree() : UATMM!AttackTree{
+	return UATMM!AttackTree.allInstances.last();	
+}

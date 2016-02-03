@@ -1,94 +1,116 @@
 package nl.utwente.fmt.atg.standalone;
 
-import static nl.utwente.fmt.atg.standalone.ATTMain.Language.AD_TOOL;
-import static nl.utwente.fmt.atg.standalone.ATTMain.Language.ATA;
-import static nl.utwente.fmt.atg.standalone.ATTMain.Language.AT_CALC;
-import static nl.utwente.fmt.atg.standalone.ATTMain.Language.UAT;
-
 import java.io.File;
-import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.Map;
 
-import nl.utwente.fmt.atg.standalone.meta.transformations.*;
-import nl.utwente.fmt.atg.standalone.transformers.ADTool2ATCalcTransformer;
-import nl.utwente.fmt.atg.standalone.transformers.ITransformer;
+import nl.utwente.fmt.atg.standalone.transformer.ADTool2UAT;
+import nl.utwente.fmt.atg.standalone.transformer.ATA2UAT;
+import nl.utwente.fmt.atg.standalone.transformer.ITransformer;
+import nl.utwente.fmt.atg.standalone.transformer.UAT2ADTool;
+import nl.utwente.fmt.atg.standalone.transformer.UAT2ATCalc;
 
 public class ATTMain {
-	public final static Language DEFAULT_SOURCE = AD_TOOL;
-	public final static Language DEFAULT_TARGET = AT_CALC;
+	/** Matrix of transformers. */
+	private static final Map<Language, Map<Language, ITransformer>> transformers;
+
+	static {
+		transformers = new EnumMap<>(Language.class);
+		for (Language l : Language.values()) {
+			transformers.put(l, new EnumMap<>(Language.class));
+		}
+		register(ADTool2UAT.instance());
+		register(ATA2UAT.instance());
+		register(UAT2ADTool.instance());
+		register(UAT2ATCalc.instance());
+	}
+
+	/** Adds a new transformer to the matrix. */
+	private static void register(ITransformer trafo) {
+		Language src = trafo.getSourceLanguage();
+		Language tgt = trafo.getTargetLanguage();
+		Map<Language, ITransformer> fromSrcTrafos = transformers.get(src);
+		if (!fromSrcTrafos.containsKey(tgt)) {
+			fromSrcTrafos.putAll(close(trafo));
+			for (Map<Language, ITransformer> trafoMap : transformers.values()) {
+				if (trafoMap.containsKey(src) && !trafoMap.containsKey(tgt)) {
+					ITransformer toTgt = trafoMap.get(src).compose(trafo);
+					trafoMap.putAll(close(toTgt));
+				}
+			}
+		}
+	}
+
+	/**
+	 * Builds the transitive closure for a given new transformer, by putting
+	 * it in front of all existing transformers starting from the target
+	 * language of the new transformer.
+	 */
+	private static Map<Language, ITransformer> close(ITransformer trafo) {
+		Language tgt = trafo.getTargetLanguage();
+		Map<Language, ITransformer> result = new EnumMap<>(Language.class);
+		result.put(tgt, trafo);
+		for (ITransformer next : transformers.get(tgt).values()) {
+			result.put(next.getTargetLanguage(), trafo.compose(next));
+		}
+		return result;
+	}
 
 	public static void main(String[] args) throws Exception {
-		if (args.length != 0 && args.length != 3) {
-			System.err.printf("Usage: ATTMain [source target input-model]%n");
-			System.err.printf("Parameters: source, target chosen out of %s%n", languageList());
-			System.err.printf("Default: source = %s, target = %s%n", DEFAULT_SOURCE, DEFAULT_TARGET);
+		if (args.length != 4) {
+			System.err
+					.printf("Usage: ATTMain source-language target-language source-model target-model%n");
+			System.err.printf("Parameters: source, target chosen out of %s%n",
+					languageList());
 			System.exit(1);
 		}
 		ITransformer transformer;
-		Language source = args.length == 0 ? DEFAULT_SOURCE : Language.valueOf(args[0]);
+		Language source = Language.getLanguage(args[0]);
 		if (source == null) {
-			System.err.printf("Source = %s is not a regognised language", args[0]);
+			System.err.printf("Source = %s is not a regognised language",
+					args[0]);
 			System.err.printf("Choose from: ", languageList());
 			System.exit(1);
 		}
-		Language target = args.length == 0 ? DEFAULT_TARGET : Language.valueOf(args[1]);
+		Language target = Language.getLanguage(args[1]);
 		if (target == null) {
-			System.err.printf("Source = %s is not a regognised language", args[1]);
+			System.err.printf("Source = %s is not a regognised language",
+					args[1]);
 			System.err.printf("Choose from: ", languageList());
 			System.exit(1);
 		}
-		String inputFilePath = null;
-		String inputFileName = args.length == 0 ? "ADTI.xml" : args[2];
-		if (inputFileName == null) {
-			System.err.printf("Invalid input file");
-			System.exit(1);
-		} else {
-			File jarPath=new File(ATTMain.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-	        String propertiesPath=jarPath.getParentFile().getAbsolutePath();
-	        inputFilePath=propertiesPath+File.separator+inputFileName;
-		}
-		transformer = getTransformer(source, target, inputFilePath);
+		File jarPath = new File(ATTMain.class.getProtectionDomain()
+				.getCodeSource().getLocation().getPath());
+		String propertiesPath = jarPath.getParentFile().getAbsolutePath();
+		String inputFileName = args[2];
+		String inputFilePath = propertiesPath + File.separator + inputFileName;
+		String outputFileName = args[3];
+		String outputFilePath = propertiesPath + File.separator
+				+ outputFileName;
+		transformer = getTransformer(source, target);
 		if (transformer == null) {
-			System.err.printf("Can't transform from %s to %s%n", source, target);
+			System.err
+					.printf("Can't transform from %s to %s%n", source, target);
 			System.exit(1);
 		}
-		transformer.initialize();
-		transformer.execute();
+		transformer.execute(inputFilePath, outputFilePath);
 	}
 
 	/**
 	 * Returns a transformer from a given source to target language
-	 * @param source Source language for transformation
-	 * @param target Target language for transformation
-	 * @return a standalone transformation from source to target language, or <code>null</code>
-	 * if no such transformation can be defined
+	 * 
+	 * @param source
+	 *            Source language for transformation
+	 * @param target
+	 *            Target language for transformation
+	 * @return a standalone transformation from source to target language, or
+	 *         <code>null</code> if no such transformation can be defined
 	 */
-	private static ITransformer getTransformer(Language source,
-			Language target, String inputFilePath) {
-		ITransformer transformer;
-		if(source == AD_TOOL && target == AT_CALC){
-			transformer = new ADTool2ATCalcTransformer(inputFilePath, "ATCalcInput.txt");
-//		if (source == ATA && target == UAT) {
-//			example = new ATA2UATMM();
-//		} else if (source == AD_TOOL && target == UAT) {
-//			example = new ADTool2UATMM();
-//		} else if (source == UAT && target == AD_TOOL) {
-//			example = new UATMM2ADTool();
-//		} else if (source == UAT && target == AT_CALC) {
-//			example = new UATMM2ATCalc();
-		} else {
-			transformer = null;
-		}
-		return transformer;
+	private static ITransformer getTransformer(Language source, Language target) {
+		return transformers.get(source).get(target);
 	}
-	
+
 	static public String languageList() {
-		return Arrays.asList(Language.values()).toString();
-	}
-	
-	static public enum Language {
-		UAT,
-		ATA,
-		AD_TOOL,
-		AT_CALC,;
+		return Language.getLanguageMap().keySet().toString();
 	}
 }
