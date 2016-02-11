@@ -3,6 +3,7 @@ package nl.utwente.fmt.atg.standalone.transformer;
 import static nl.utwente.fmt.atg.standalone.transformer.EpsilonTransformer.Role.SOURCE;
 import static nl.utwente.fmt.atg.standalone.transformer.EpsilonTransformer.Role.TARGET;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -81,7 +82,8 @@ public abstract class EpsilonTransformer implements ITransformer {
 			}
 			return null;
 		}
-		for (IModel model : getModels(inputPath, outputPath)) {
+		String outputURI = new File(outputPath).toURI().getPath();
+		for (IModel model : getModels(inputPath, outputURI)) {
 			module.getContext().getModelRepository().addModel(model);
 		}
 		Object result = module.execute();

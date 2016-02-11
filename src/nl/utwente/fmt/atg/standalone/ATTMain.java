@@ -78,9 +78,7 @@ public class ATTMain {
 			System.err.printf("Choose from: %s%n", languageList());
 			System.exit(1);
 		}
-		File jarPath = new File(ATTMain.class.getProtectionDomain()
-				.getCodeSource().getLocation().getPath());
-		String propertiesPath = System.getProperty("user.dir");//jarPath.getParentFile().getAbsolutePath();
+		String propertiesPath = System.getProperty("user.dir");
 		String inputFileName = args[2];
 		String inputFilePath = propertiesPath + File.separator + inputFileName;
 		String outputFileName = args[3];
