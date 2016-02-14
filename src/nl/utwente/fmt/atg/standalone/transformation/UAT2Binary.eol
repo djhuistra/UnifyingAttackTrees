@@ -2,7 +2,6 @@
 var at := AttackTree.all.first();
 var defaultRole := Role.allInstances.select(n|n.RoleType=RoleType#Contributing).first();
 at.Root.NodeToBinary();
-Model.store(Model.modelFile + 'copy.model');
 
 "Completed UAT2BinaryUAT transformation".println();
 

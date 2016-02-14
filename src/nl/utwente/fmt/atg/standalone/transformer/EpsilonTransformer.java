@@ -2,6 +2,7 @@ package nl.utwente.fmt.atg.standalone.transformer;
 
 import static nl.utwente.fmt.atg.standalone.transformer.EpsilonTransformer.Role.SOURCE;
 import static nl.utwente.fmt.atg.standalone.transformer.EpsilonTransformer.Role.TARGET;
+import static nl.utwente.fmt.atg.standalone.transformer.EpsilonTransformer.Role.BOTH;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -103,12 +104,12 @@ public abstract class EpsilonTransformer implements ITransformer {
 		assert language.getLocation() != null : String.format(
 				"Can't create EMF model for language %s", language);
 		StringProperties props = new StringProperties();
-		props.put(EmfModel.PROPERTY_NAME, language.getName());
+		props.put(EmfModel.PROPERTY_NAME, role == BOTH ? "Model" : language.getName());
 		props.put(EmfModel.PROPERTY_FILE_BASED_METAMODEL_URI,
 				toFileURI(language.getLocation()));
 		props.put(EmfModel.PROPERTY_MODEL_URI, model);
-		props.put(EmfModel.PROPERTY_READONLOAD, "" + (role == SOURCE));
-		props.put(EmfModel.PROPERTY_STOREONDISPOSAL, "" + (role == TARGET));
+		props.put(EmfModel.PROPERTY_READONLOAD, "" + (role == SOURCE || role == BOTH));
+		props.put(EmfModel.PROPERTY_STOREONDISPOSAL, "" + (role == TARGET || role == BOTH));
 
 		EmfModel result = new EmfModel();
 		result.load(props, null);
@@ -151,6 +152,6 @@ public abstract class EpsilonTransformer implements ITransformer {
 
 	/** Role of a model or language in a transformation. */
 	protected enum Role {
-		SOURCE, TARGET, ;
+		SOURCE, TARGET, BOTH;
 	}
 }

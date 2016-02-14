@@ -10,6 +10,7 @@ import nl.utwente.fmt.atg.standalone.transformer.ComposedTransformer;
 import nl.utwente.fmt.atg.standalone.transformer.ITransformer;
 import nl.utwente.fmt.atg.standalone.transformer.UAT2ADTool;
 import nl.utwente.fmt.atg.standalone.transformer.UAT2ATCalc;
+import nl.utwente.fmt.atg.standalone.transformer.UAT2UATBinary;
 
 public class ATTMain {
 	/** Matrix of transformers. */
@@ -24,6 +25,7 @@ public class ATTMain {
 		register(ATA2UAT.instance());
 		register(UAT2ADTool.instance());
 		register(UAT2ATCalc.instance());
+		register(UAT2UATBinary.instance());
 	}
 
 	/** Adds a new transformer to the matrix. */
