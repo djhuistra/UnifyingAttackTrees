@@ -1,11 +1,12 @@
 # Attack Tree Transformation (ATT) project
 ## Description
-This project contains a universal attack tree modeling language and transformations from/to concrete other attack tree data-standards.
-It can be compiled into standalone .jar and can be used to transform an attack tree in a specific data format towards another data format.
+This project contains a universal attack tree meta-model and transformations from/to concrete attack tree data-standards.
+It can be compiled into standalone .jar and can be used to transform an attack tree in a specific data-format towards another data-format.
 
 
 ## Overview
 ![Project Overview](/images/Metamodel-and-Transformations-80p.png)
+
 The project contains two main components: A universal metamodel for attack trees (UAT) and a set of transformations that transform attack trees to differetn data-standards.
 
 The transformations can be composed to produce a single transformation sequence, for example a transformation from the ATAnalyzer data-format to the ATCalc input format
@@ -25,7 +26,10 @@ The Source and Target langauge must be chosen from a set of predefined options, 
 
 Some usage example are:
 ```
-java -jar ATT.jar ADTool ADTBin ADToolFile.xml ADToolBinaryFile.xml
-java -jar ATT.jar ADTool ATCalc ADToolFile.xml ATCalcInput.txt
+java -jar ATT.jar ADTool ADTBin ExampleADToolFile.xml ADToolBinaryFile.xml
+java -jar ATT.jar ADTool ATCalc ExampleADToolFile.xml ATCalcInput.txt
 java -jar ATT.jar ATA ADTool ATA.xml ADTool.xml
 ```
+The first example transforms an ADTool attack tree into an ADToolBinary attack tree. 
+The second example transforms an ADTool tree into an ATCalc input tree.
+The third example transforms an ATAnalyser tree into an ADTool tree
