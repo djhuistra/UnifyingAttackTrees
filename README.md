@@ -10,7 +10,10 @@ The project contains two main components: A universal metamodel for attack trees
 
 The transformations can be composed to produce a single transformation sequence, for example a transformation from the ATAnalyzer data-format to the ATCalc input format
 
-### Usage
+## Get it
+Simply download the JAR file [here](ATT.jar).
+
+## Usage
 The tranformations can be invoked by running the standalone jar from command line. 
 It requires the following four paramters.
 ```
