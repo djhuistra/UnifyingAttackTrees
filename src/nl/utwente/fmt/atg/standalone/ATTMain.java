@@ -6,6 +6,7 @@ import java.util.Map;
 
 import nl.utwente.fmt.atg.standalone.transformer.ADTool2UAT;
 import nl.utwente.fmt.atg.standalone.transformer.ATA2UAT;
+import nl.utwente.fmt.atg.standalone.transformer.ComposedTransformer;
 import nl.utwente.fmt.atg.standalone.transformer.ITransformer;
 import nl.utwente.fmt.atg.standalone.transformer.UAT2ADTool;
 import nl.utwente.fmt.atg.standalone.transformer.UAT2ATCalc;
@@ -104,6 +105,19 @@ public class ATTMain {
 	 *         <code>null</code> if no such transformation can be defined
 	 */
 	private static ITransformer getTransformer(Language source, Language target) {
+		
+		// Special case: A three-step transformation
+		if(target == Language.AD_TOOL_BINARY){
+			ITransformer first = transformers.get(source).get(Language.UAT);
+			ITransformer second = transformers.get(Language.UAT).get(Language.UAT_BINARY);
+			ITransformer third = transformers.get(Language.UAT).get(Language.AD_TOOL);
+			ITransformer firstComposed = new ComposedTransformer(first, second);
+			ITransformer secondComposed = new ComposedTransformer(firstComposed, third);
+			
+			return secondComposed;
+		}
+
+		// Otherwise, we search for a 1 or 2-step transformation in a regular manner
 		return transformers.get(source).get(target);
 	}
 

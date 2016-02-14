@@ -12,8 +12,11 @@ public enum Language {
 	/** ADTool XML format. */
 	AD_TOOL("ADTool"),
 	/** ATCalc textual format. */
-	AT_CALC("ATCalc"), ;
-
+	AT_CALC("ATCalc"), 
+	/** ADTool Binary Tree XML format*/
+	AD_TOOL_BINARY("ADTBin"),
+	UAT_BINARY("UATBin", "meta/UATMM.ecore"),;
+	
 	private final String name;
 	private final String location;
 	
