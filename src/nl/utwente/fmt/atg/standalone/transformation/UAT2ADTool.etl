@@ -1,0 +1,96 @@
+pre {
+
+  	var javaDate = new Native("java.util.Date");
+  	javaDate.toString().println("Starting UAT2ADTool transformation: ");
+  	
+}
+
+post {
+ 	var javaDate = new Native("java.util.Date");
+  	javaDate.toString().println("Completed UAT2ADTool transformation: ");
+}
+
+@primary
+rule UATMM2ADTool
+	transform at : UATMM!AttackTree
+	to adt : ADTool!t_adtree {	
+		ADTool.root = adt;
+}
+
+rule GAT2ADTool 	
+	transform r : UATMM!Node
+	to f : ADTool!t_node {
+	
+	//Set refinement attribute of node
+	f.a_refinement= r.findRefinement();
+	
+	// Create and add label to the current node.
+	var label = new ADTool!t_label;
+	label.text = r.Label;
+	f.appendChild(label);
+	
+	// Append all attribute nodes to the current node
+	// Invoke the lazy rule for all attributes (by using equivalent())
+	// then append all children XML nodes to the current node.
+  	for (child in r.Attributes.equivalent()) {
+    	f.appendChild(child);
+  	}
+	
+	// If the parent ATNode has a different role, add 'switchRole' attribute to the XML node.
+	if(r.Parents.size() > 0 and r.Parents.first().Role.RoleType <> r.Role.RoleType ){
+		f.a_switchRole = "yes";
+	}
+
+	// Append all child ATNodes to the current node in the XML
+	for (child in r.Children.equivalent()) {
+    	f.appendChild(child);
+  	}
+  	
+  	// Append the current node to the root (Not sure why this works, as it is called for all nodes)
+  	ADTool.root.appendChild(f);	
+}
+
+// Simply transform each domain into an XML domain and attach it to the root
+rule Domain2ADToolDomain 
+	transform at : UATMM!Domain
+	to ad : ADTool!t_domain {
+	
+	var class = new ADTool!t_class;
+	class.text = at.determineClass();
+	var tool = new ADTool!t_tool;
+	tool.text = "ADTool";
+	ad.a_id = at.ID; 
+	
+	ad.appendChild(class);
+	ad.appendChild(tool);
+	ADTool.root.appendChild(ad); 	
+}
+
+@lazy
+rule Attribute2Param
+	transform a : UATMM!Attribute
+	to p : ADTool!t_parameter{
+	
+	p.a_domainId = a.Domain.ID;
+	p.text = a.Value;
+}
+
+
+// Find the string version of the refinement of ATNode
+operation UATMM!Node findRefinement() : String{
+	if(self.Connector.isTypeOf(UATMM!OR)){
+		return "disjunctive";
+	} else if(self.Connector.isTypeOf(UATMM!AND)){
+		return "conjunctive";
+	}
+	return "disjunctive";	
+}
+
+
+// Find the string version of the refinement of ATNode
+operation UATMM!Domain determineClass() : String{
+
+	//Removing trailing digits to determine class
+	return "lu.uni.adtool.domains.predefined."+(self.ID.replaceAll("\\d*$", ""));	
+}
+

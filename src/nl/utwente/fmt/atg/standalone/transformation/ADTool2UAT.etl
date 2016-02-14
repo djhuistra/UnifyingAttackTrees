@@ -1,12 +1,12 @@
 pre {
 
   	var javaDate = new Native("java.util.Date");
-  	javaDate.toString().println("Starting ADTool2MM transformation: ");
+  	javaDate.toString().println("Starting ADTool2UAT transformation: ");
 }
 
 post {
  	var javaDate = new Native("java.util.Date");
-  	javaDate.toString().println("Completed ADTool2MMM transformation: ");
+  	javaDate.toString().println("Completed ADTool2UAT transformation: ");
 }
 
 // Transform all domains and set several attributes by obtaining 

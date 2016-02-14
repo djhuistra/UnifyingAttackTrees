@@ -1,6 +1,6 @@
 [%
   	var javaDate = new Native("java.util.Date");
-  	javaDate.toString().println("Starting MM2ATCalc generation: ");
+  	javaDate.toString().println("Starting UAT2ATCalc generation: ");
 
 var attackTree : AttackTree = AttackTree.allInstances().first();
 
@@ -41,7 +41,7 @@ toplevel "[%=root.Label%]";
 
 
  	var javaDate = new Native("java.util.Date");
-  	javaDate.toString().println("Completed MM2ATCalc generation: ");
+  	javaDate.toString().println("Completed UAT2ATCalc generation: ");
   	
 operation String divideBy() : Real {
 	if(self.asInteger()>0){
